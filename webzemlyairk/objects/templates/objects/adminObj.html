@@ -1,0 +1,127 @@
+{% extends 'admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<p>Объекты</p>
+</div>
+
+<h1>Объекты</h1>
+<nav class="navbar bg-light search">
+    <form class="form-group p-0 col-12 m-0">
+        <div class="row col-12 no-gutters p-0 justify-content-between">
+            <div class="col-md-9">
+                <input class="form-control" type="search" placeholder="Поиск" aria-label="Поиск">
+            </div>
+            <button class="btn btn-outline-primary col ml-md-2 mt-2 mt-md-0" type="submit">Поиск</button>
+
+        </div>
+        <div class="col-12 row p-0 no-gutters">
+            <div class="col-xl-3 col-12">
+                <!-- <input type="text" class="mr-1" size="3%" placeholder="№"> -->
+                <input type="text" class="form-control my-2" placeholder="Телефон">
+            </div>
+            <div class="col-xl-5 col-md-6 form-inline col-12 px-xl-2 pl-xl-4 justify-content-between">
+                <input type="number" class="form-control col-12 col-md-5 my-2 mr-2">
+                <input type="number" class="form-control col-12 col-md-5 my-2 ">
+                <label>руб.</label>
+            </div>
+            <div class="col-xl-4 col-md-6 form-inline col-12 px-md-2 justify-content-between">
+                <input type="number" class="form-control col-12 col-md-5 my-2 mr-2">
+                <input type="number" class="form-control col-12 col-md-5 my-2 ">
+                <label>м<sup>2</sup> </label>
+            </div>
+        </div>
+        <div class="col-12 row p-0 mx-auto">
+            <div class="col-md-2 col-12 my-2 p-0">
+                <input type="text" class="form-control col-12" placeholder="№ заявки">
+            </div>
+            <div class="col-md-4 col-12 p-0 px-md-2">
+                <select class="form-control my-2">
+                    <option value="">Земельный участок</option>
+                    <option value="">Промышленная база</option>
+
+                </select>
+            </div>
+            <div class="col-md-6 col-12 p-0">
+                <input type="text" class="form-control my-2" placeholder="Направление">
+            </div>
+        </div>
+    </form>
+</nav>
+</section>
+
+<form class="object-bar col-12 p-0">
+    <ul class="nav nav-pills">
+        <li class="nav-item col-md-auto col-6 my-1 pl-0">
+            <a class="nav-link" href="{% url 'add_place' %}">Добавить</a>
+        </li>
+        <li class="nav-item mr-2 my-2 col-sm-auto col-12 pl-0">
+            <!-- <p class="mb-0 col-auto">Сортировать -->
+            <select class="form-control w-auto" name="sort" onchange="this.form.submit()">
+                <option value="-id" {% if sort == '-id' %} selected {% endif %}>Сначала новые</option>
+                <option value="id" {% if sort == 'id' %} selected {% endif %}>Сначала старые</option>
+                <option value="date_end" {% if sort == 'date_update' %} selected {% endif %}>По дате обновления</option>
+            </select>
+            <!-- </p> -->
+        </li>
+        <li class="nav-item col-sm-auto  pl-0">
+            <select class="form-control w-auto col-12">
+                <option>Все</option>
+                <option>Проданные</option>
+                <option>Удаленные</option>
+            </select>
+        </li>
+        <li class="nav-item my-2 col-sm-auto col-12 pl-0">
+            <select class="form-control w-auto col-12" name="show"  onchange="this.form.submit()">
+                <option value="3" {% if show == 3 %} selected {% endif %}>3</option>
+                <option value="4" {% if show == 4 %} selected {% endif %}>4</option>
+                <option value="5" {% if show == 5 %} selected {% endif %}>5</option>
+            </select>
+        </li>
+    </ul>
+</form>
+
+<section class="object-cards row no-gutters">
+    {% for x in objects %}
+    <div class="col-lg-4 col-md-5 col-12 justify-content-center">
+        <a href="{% url 'place' x.id %}" class="card">
+            <div class="card-head p-1 col-12">
+                <h4>№{{x.id}}</h4>
+            </div>
+            <img src="{% static 'main/images/road-photo.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body col-12 p-2">
+                <p>{{x.locality.show_name}}</p>
+                <p>{{x.parent.show_name}}</p>
+                <div class="justify-content-between">
+                    <h4>{{x.cost }} р.</h4>
+                    <p> {{x.area }} сот.</p>
+                </div>
+                <p><span>{% widthratio x.cost x.area 1 %}</span> р./сотку</p>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</section>
+
+<section class="col-12 mt-2">
+    <nav aria-label="Пример навигации по страницам">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not prev %} disabled {% endif %}">
+                <a class="page-link" href="{{ prev }}&sort={{sort}}&show={{show}}" tabindex="-1" aria-disabled="true">&#171;</a>
+            </li>
+            {% for x in objects.paginator.page_range %}
+                {% if  x == objects.number %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ x }}&sort={{sort}}&show={{show}}">{{ x }}</a></li>
+                {% elif x > objects.number|add:-3 and x < objects.number|add:3 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ x }}&sort={{sort}}&show={{show}}">{{ x }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            <li class="page-item {% if not next %} disabled {% endif %}">
+                <a class="page-link" href="{{ next }}&sort={{sort}}&show={{show}}">&#187;</a>
+            </li>
+        </ul>
+    </nav>
+</section>
+{% endblock %}

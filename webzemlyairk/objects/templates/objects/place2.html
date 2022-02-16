@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru"> <!--???-->
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" media="screen" href="media.css">
+	<link rel="stylesheet" href="fontawesome/css/all.css">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЗемляИрк</title>
+    <script> </script> 
+</head>
+<body>
+    <header>
+        <div>
+            <a href="index.html" class="logo">ЗемляИрк</a>
+            <div class="icons">
+                <a href="comparison.html" class="fas fa-chart-bar fa-2x"><span class="badge">0</span>&nbsp</a>
+                <a href="contact.html" class="fas fa-phone-alt fa-2x">&nbsp</a>
+                <a href="mapRoads.html" class="fas fa-map-marked fa-2x">&nbsp</a>
+                <a href="personalLike.html" class="fas fa-heart fa-2x"><span class="badge">0</span>&nbsp</a>
+                <a href="personalLike.html" class="fas fa-user fa-2x">&nbsp</a>
+            </div>
+
+            <div class="phone">
+                <h3>+7 (3952) 123-456</h3>
+                <div>
+                    <a class="fab fa-whatsapp">&nbsp</a>
+                    <a class="fab fa-telegram">&nbsp</a>
+                    <a class="fab fa-viber"></a>
+                </div>
+                <div class="hamburger-menu">
+                    <input id="menu__toggle" type="checkbox" />
+                    <label class="menu__btn" for="menu__toggle">
+                        <span></span>
+                    </label>
+
+                    <ul class="accordeon menu__box" id="accordion-mobile">
+                        <li><a class="menu__item link" href="mapRoads.html">Карта трактов</a></li>
+                        <li><a class="menu__item link" href="#">Загородная недвижимость</a>
+                            <ul class="submenu">
+                                <li><a href="countryPlaces.html">Земельные участки</a></li>
+                                <li><a href="#">Дачи</a></li>
+                                <li><a href="#">Коттеджи</a></li>
+                                <li><a href="#">Дома</a></li>
+                                <li><a href="#">Бизнес-объекты</a></li>
+                                <li><a href="#">Готовый бизнес</a></li>
+                                <li><a href="#">Промышленные базы</a></li>
+                                <li><a href="#">Таунхаузы</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="menu__item link" href="#">Городская недвижимость</a>
+                            <ul class="submenu">
+                                <li><a href="#">Квартиры</a></li>
+                                <li><a href="#">Гаражи</a></li>
+                                <li><a href="#">Офисы</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="menu__item link" href="comparison.html">Сравнение объектов</a></li>
+                        <li><a class="menu__item link" href="contact.html">Контакты</a></li>
+                        
+                        <div class="mobile-phone">
+                            <h3>+7 (3952) 123-456</h3>
+                            <!-- <p>mail@zemlyairk.ru</p> -->
+                            <div>
+                                <a class="fab fa-whatsapp">&nbsp</a>
+                                <a class="fab fa-telegram">&nbsp</a>
+                                <a class="fab fa-viber"></a>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <aside class="menu">
+            <div class="buy-sale">
+                <a href="buy.html" type="button" class="button-buy-sale">Купить</a>
+                <a href="sale.html" type="button" class="button-buy-sale">Продать</a>
+            </div>
+            <nav>
+                <ul id="accordion" class="accordeon">
+                  <li>
+                    <a class="link" href="mapRoads.html">Карта трактов</a>
+                  </li>
+                  <li>  
+                    <a class="link" >Загородная недвижимость<i class="fas fa-angle-down"></i></a>
+                    <ul class="submenu">
+                      <li><a href="countryPlaces.html">Земельные участки </a></li>
+                      <li><a href="#">Дачи</a></li>
+                      <li><a href="#">Коттеджи</a></li>
+                      <li><a href="#">Дома</a></li>
+                      <li><a href="#">Бизнес-объекты</a></li>
+                      <li><a href="#">Готовый бизнес</a></li>
+                      <li><a href="#">Промышленные базы</a></li>
+                      <li><a href="#">Таунхаузы</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a class="link" >Городская недвижимость<i class="fas fa-angle-down"></i></a>
+                    <ul class="submenu">
+                      <li><a href="#">Квартиры</a></li>
+                      <li><a href="#">Гаражи</a></li>
+                      <li><a href="#">Офисы</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a class="link" href="comparison.html">Сравнение объектов</a>
+                  </li>
+                  <li>
+                    <a class="link" href="contact.html">Контакты</a>
+                  </li>
+                  <li> 
+                </ul>
+            </nav>
+            
+            <div class="left-statistic">
+                <h3>Сегодня в Иркутске продаются:</h3>
+                <div>
+                    <p><i class="fas fa-warehouse"></i> 1945 объектов</p>
+                    <p><i class="fas fa-vector-square"></i> 1600га земли</p>
+                    <p><i class="fas fa-door-closed"></i> 789м<sup>2</sup> жилья</p>
+                </div>
+                <div>
+                    <h4>Из них земель:</h4>
+                    <p><i class="fas fa-home"></i> 66 дач</p>
+                    <p><i class="fas fa-building"></i> 26 коттеджей</p>
+                    <p><i class="fas fa-key"></i> 10 квартир</p>
+                </div>
+            </div>
+        </aside>
+        
+        <section>
+            <section class="search">
+                <form class="search-panel">
+                    <input placeholder="Поиск"></input>
+                    <a href="search.html" type="button" class="fa fa-search"> </a>
+                </form>
+                <a href="search.html" type="button" class="button"><span>Расширенный</span>&nbsp;поиск</a>
+                <a href="search.html" type="button" class="button fas fa-search-location fa-2x"></a>
+            </section>
+
+            <section class="breadcrumbs">
+                <a href="index.html">Главная</a>
+                <a href="countryPlaces.html">Загородная недвижимость</a>
+                <a href="countryPlaces.html">Земельные участки</a>
+                <p>Участок №12345</p>
+            </section>
+
+            <section class="place-header">
+                <div class="place-icons">
+                    <h1>Земельный участок №12345</h1>
+                    <div>
+                        <figure>
+                            <i class="fas fa-eye"></i>
+                            <figcaption>456</figcaption>
+                        </figure>
+                        <a href="#" class="far fa-heart" title="Добавить в избранное"></a>
+                        <a href="#" class="fas fa-share-alt" title="Поделиться"></a>
+                        <a href="#" class="fas fa-plus" title="Добавить в сравнение"></a>
+                        <p class="locality">Большое Голоустное</p>
+
+                    </div>
+                </div>
+                <div class="place-price">
+                    <div>
+                        <h2><span>1060</span> тыс. р. </h2>
+                        <p>
+                        <p><i class="fas fa-vector-square fa-1x"></i> 106&nbsp;сот.&nbsp;</p>
+                        <p>/&nbsp;<i class="fas fa-home"></i>&nbsp;40&nbsp;м<sup>2</sup></p></p>
+                        <p>10 тыс.руб./сотку</p>
+                    </div>
+                    
+                </div>
+
+            </section>
+            
+            <section class="place">
+                <div class="place-description">
+                    <iframe src="https://yandex.ru/map-widget/v1/-/CCUQ6GH-TB" 
+                    width="100%" height="450" allowfullscreen="true"></iframe>
+                    
+                    <div class="add-info">
+                        <a href="#" class="underline"><i class="fas fa-map-pin"></i> Посмотреть участки рядом</a>
+                        <a href="#" class="button">Запросить дополнительную информацию</a>
+
+                    </div>
+                </div>
+                <div class="place-description">
+                    <div class="place-date">
+                        <!-- <h2>Описание</h2> -->
+                        <h4>1 марта 2021</h4>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>Направление:</td>
+                            <td>Александровский тракт</td>
+                        </tr>
+                        <tr>
+                            <td>Населенный пункт:</td>
+                            <td>Селенга</td>
+                        </tr>
+                        <tr>
+                            <td>Тип объекта:</td>
+                            <td>Земельный участок</td>
+                        </tr>
+                        <tr>
+                            <td>Lorem:</td>
+                            <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                                Unde exercitationem, laboriosam ducimus quod magni provident hic odio 
+                                magnam error esse possimus molestiae tenetur fugit perspiciatis nisi 
+                                consectetur voluptatem, quia dolore.</td>
+                        </tr>
+                        <tr>
+                            <td>Lorem:</td>
+                            <td>ipsum</td>
+                        </tr>
+                        <tr>
+                            <td>Lorem:</td>
+                            <td>ipsum</td>
+                        </tr>
+                        <tr>
+                            <td>Lorem:</td>
+                            <td>ipsum</td>
+                        </tr>
+                        <tr>
+                            <td>Lorem:</td>
+                            <td>ipsum</td>
+                        </tr>
+                        <tr>
+                            <td>Lorem:</td>
+                            <td>ipsum</td>
+                        </tr>
+                        <tr>
+                            <td>Lorem:</td>
+                            <td>ipsum</td>
+                        </tr>
+                        <tr>
+                            <td>Lorem:</td>
+                            <td>ipsum</td>
+                        </tr>
+                    </table>
+                    <div class="mortgage">
+                        <a href="#" class="button">Купить в ипотеку</a>
+                        
+                        <a href="#"><img src="images/raif.svg" width="100%"></a>
+                        <a href=""><img src="images/vtb.svg" width="100%"></a>
+                        <!-- <img src="images/sber1.png" width="10%"> -->
+                        <a href=""><img src="images/moscow.svg" width="100%"></a>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="road-img">
+                <img src="images/road-photo.jpg" width="100%">
+            </section>
+
+            <section class="road-graph">
+                <img src="images/graph.png" width="100%">
+            </section>
+
+            <section class="place-sames">
+                <h3>Похожие предложения</h3>
+                <div class="low-price-places">
+                    <fieldset>
+                        <legend>Коттедж</legend>
+                        <a href="place.html">
+                            <img src="./images/cottage.jpg" width="100%">
+                            <p>Березонька</p>
+                            <div>
+                                <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span></p>
+                            </div>
+                        </a>
+                    </fieldset>
+                    
+                    <fieldset>
+                        <legend>Коттедж</legend>
+                        <a href="place.html">
+                            <img src="./images/cottage.jpg" width="100%">
+                            <p>Березонька</p>
+                            <div>
+                                <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span></p>
+                            </div>
+                        </a>
+                    </fieldset>
+    
+                    <fieldset>
+                        <legend>Коттедж</legend>
+                        <a href="place.html">
+                            <img src="./images/cottage.jpg" width="100%">
+                            <p>Березонька</p>
+                            <div>
+                                <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span></p>
+                            </div>
+                        </a>
+                    </fieldset>
+    
+                </div>   
+            </section>
+            <section class="place-recently">
+                <h3>Недавно просмотренные</h3>
+                <div class="low-price-places">
+                    <fieldset>
+                        <legend>Коттедж</legend>
+                        <a href="place.html">
+                            <img src="./images/cottage.jpg" width="100%">
+                            <p>Березонька</p>
+                            <div>
+                                <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span></p>
+                            </div>
+                        </a>
+                    </fieldset>
+                    
+                    <fieldset>
+                        <legend>Коттедж</legend>
+                        <a href="place.html">
+                            <img src="./images/cottage.jpg" width="100%">
+                            <p>Березонька</p>
+                            <div>
+                                <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span></p>
+                            </div>
+                        </a>
+                    </fieldset>
+    
+                    <fieldset>
+                        <legend>Коттедж</legend>
+                        <a href="place.html">
+                            <img src="./images/cottage.jpg" width="100%">
+                            <p>Березонька</p>
+                            <div>
+                                <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span></p>
+                            </div>
+                        </a>
+                    </fieldset>
+    
+                </div>   
+            </section>
+        </section>
+
+    </main>
+
+    
+    <footer>
+        <div>
+            <div>
+                <p> +7 (3952) 123-456</p>
+                <p>mail@zemlyairk.ru</p>
+                <p>Иркутск, ул. Ленина, 11, офис 39</p>
+            </div>
+            <div>
+                <div>
+                    <i class="fab fa-whatsapp fa-2x">&nbsp</i>
+                    <i class="fab fa-telegram fa-2x">&nbsp</i>
+                    <i class="fab fa-viber fa-2x"></i>
+                </div>
+                <p>Услуги</p>
+                <p>Соглашение с пользователем</p>
+            </div>
+            <p> OOO "ЗемляИрк", 2021</p>
+        </div>
+    </footer>
+
+        <script src="jquery-3.6.0.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>

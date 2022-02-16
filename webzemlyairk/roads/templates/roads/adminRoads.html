@@ -1,0 +1,104 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<p>Все тракты и пункты</p>
+</div>
+
+<h1>Все тракты и пункты</h1>
+<nav class="navbar bg-light search row ">
+    <form class="form-group p-0 col-12 m-0">
+        <div class="row col-12 no-gutters p-0 justify-content-between mb-2">
+            <div class="col-md-9">
+                <input class="form-control" type="search" placeholder="Поиск" aria-label="Поиск">
+            </div>
+            <button class="btn btn-outline-primary col ml-md-2 mt-2 mt-md-0" type="submit">Поиск</button>
+
+        </div>
+    </form>
+</nav>
+</section>
+
+<section class="request-bar">
+    <ul class="nav nav-pills">
+        <li class="nav-item my-2 col-sm-auto col-12 pl-0">
+            <a class="nav-link btn btn-outline-primary" href="{% url 'add_loc' %}">Создать</a>
+        </li>
+        <li class="nav-item my-2 col-sm-auto col-12 p-0">
+            <select class="form-control w-auto col-12">
+                <option>Все</option>
+                <option>Скрытые</option>
+                <option>Удаленные</option>
+            </select>
+        </li>
+</section>
+
+<section>
+    <div class="table-responsive mt-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Объекты</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in roads %}
+                <tr>
+                    <th scope="row">{{x.id}}</th>
+                    <td><a href="{% url 'loc' x.id %}"> <b> {{x.show_name}}</b></a></td>
+                    {% if x.locality.count == 0 %}
+                    <td>-</td>
+                    {% else %}
+                    <td>{{x.locality.count}}</td>
+                    {% endif %}
+                </tr>
+                <!-- {# for c in x.children.all #}
+                <tr>
+                    <th scope="row">{{c.id}}</th>
+                    <td><a href="{# url 'loc' c.id #}" style="margin-left: 50px;">{{c.show_name}}</a></td>
+                    <td>{{c.country.count}}</td>
+                </tr>
+                {# endfor #} -->
+               {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if is_paginated %}
+<section class="col-12 mt-2">
+    <nav aria-label="Пример навигации по страницам">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item  ">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="false">&#171;</a>
+            </li>
+            {% else %}
+            <li class="page-item  disabled ">
+                <a class="page-link" href="" tabindex="-1" aria-disabled="true">&#171;</a>
+            </li>
+            {% endif %}
+            
+            {% for x in page_obj.paginator.page_range %}
+                {% if  x == page_obj.number %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ x }}">{{ x }}</a></li>
+                {% elif x > page_obj.number|add:-3 and x < page_obj.number|add:3 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ x }}">{{ x }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" tabindex="1" aria-disabled="false">&#187;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled ">
+                <a class="page-link" href="" tabindex="1" aria-disabled="true">&#187;</a>
+            </li>
+
+            {% endif %}
+        </ul>
+    </nav>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,103 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<!--???-->
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/normalize.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/admin_style.css' %}">
+    <link rel="stylesheet" media="screen" href="{% static 'main/css/media.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/fontawesome/css/all.css' %}">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЗемляИрк</title>
+</head>
+
+<body class="container">
+    <header class="container row no-gutters">
+        <nav class="navbar navbar-expand-lg navbar-dark col-12">
+            <a class="navbar-brand" href="{% url 'main_admin' %}">ЗемляИрк</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav col-12">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Заявки
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'all_requests' %}">Все заявки</a>
+                            <a class="dropdown-item" href="{% url 'my_requests' %}">Мои заявки</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Пользователи
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'all_clients' %}">Все клиенты</a>
+                            <!-- <a class="dropdown-item" href="{# url 'roles'#}">Права</a> -->
+                            <!-- <a class="dropdown-item" href="{# url 'clients' #}">Клиенты в моих заявках</a> -->
+                            <a class="dropdown-item" href="{% url 'all_emps' %}">Наша команда</a>
+
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'messages' %}">Сообщения</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'feedbacks' %}">Обратная связь</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Объекты
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'objects' %}">Все объекты</a>
+                            <a class="dropdown-item" href="{% url 'localities' %}">Все тракты и пункты</a>
+                        </div>
+                    </li>
+                    <li class="nav-item flex-grow-1 text-right">
+                        <a class="nav-link" href="#"> <i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+
+    <main class="container">
+        <section>
+            <div class="breadcrumbs">
+                <a href="{% url 'mainpage' %}">Главная</a>
+            {% block content %}
+            {% endblock %}
+    </main>
+    <wbr>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+        <!-- <script src="jquery-3.6.0.min.js"></script> -->
+
+    <!-- <script src="script.js"></script> -->
+</body>
+
+</html>

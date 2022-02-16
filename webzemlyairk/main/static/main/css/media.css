@@ -1,0 +1,337 @@
+@media screen and (max-width: 1280px){
+
+/*---------------MAIN PAGE---------------*/
+  header,main,footer{
+    max-width: 100%;
+  }
+  .top h3{  font-size: 130%; }
+  .top p{  font-size: 120%; }
+
+  .contacts iframe{ max-width: 150%;}
+  .address{ width: 40%;}
+  .address > div:last-child {
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .road iframe{ max-width: 140%;}
+}
+@media screen and (max-width: 1024px){
+  header .icons {
+    order: 1;
+    width: 100%;
+    padding: 1% 0;
+   text-align: center;
+  }
+  header .phone { width: 30%; justify-content: flex-start;}
+  header .phone > div:nth-child(2){ display: none; }
+  header .phone h3{ font-size: 120%;}
+
+  .hamburger-menu{  display: block;}
+
+/*---------------MAIN PAGE---------------*/
+  h1,h2,h3{
+    font-size: 170%;
+  }
+  .menu{
+    display: none;
+  }
+  main > section{
+    width: 100%;
+  }
+  main > section .buy-sale { 
+    display: block;
+  }
+  .button-buy-sale { 
+    padding: 2% 1%;
+    width: 30%;
+    margin: 0 5%;
+  } 
+  .statistic *{
+    font-size: 90%;
+  }
+
+/*---------------COUNTRY PLACES---------------*/
+  .country-places{
+    width: 100%;
+  }
+
+/*---------------BUY & SALE---------------*/
+  .search a.button{
+    width: 25%;
+    /* padding: 0.7em; */
+    line-height: 1.15;
+    text-overflow: ellipsis;
+    overflow: scroll;
+    /* height: 80%; */
+  }
+  
+  .map-road{ font-size: 110%;}
+
+  .road div:last-child, .road-description{ width: 50%;}
+  .road iframe{ max-width: 100%;}
+
+  .address > div:first-child{ padding-top: 0;}
+
+  /* .place-sames > .low-price-places,
+  .place-recently > .low-price-places{ width: 100%; } */
+}
+@media screen and (max-width: 750px){
+  header .icons { padding: 0 0 4%; }
+  header .phone { width: 40%; }
+
+  header .accordeon.menu__box{  width: 70%;}
+/*---------------MAIN PAGE---------------*/
+  .button-buy-sale { 
+    width: 49.6%;
+    margin: 0%;
+  }
+  .form-desktop{ display: none; }
+  .form-mobile{ 
+    display: block; 
+    font-size: 90%; 
+  }
+  .form-mobile select{
+    width: 100%;
+    text-overflow: ellipsis;
+  }
+  input#to{
+    width: 100%;    
+  }
+  .main-search form > div:last-child div{
+    width: 98%;
+    margin-top: 2%;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: space-around;
+  }
+  .main-search form > div:last-child > a{
+    font-size: 120%;
+  }
+  .main-search form > div:last-child div a{
+    width: 42%;
+    margin: 0;
+  }
+
+  .statistic figure{ width: 100%; }
+
+  .top{ 
+    width: 100%;
+    justify-content: space-between; 
+    padding: 0 1%;
+  }
+  .top-d p{ margin-top: 0; }
+
+  footer > div{ justify-content: center; }
+  footer div{ padding: 0 1%; }
+  footer{ text-align: center; }
+
+/*---------------SEARCH---------------*/
+  .search-tabs>label {
+      max-width: 44%;
+      font-size: 120%;
+  }
+  .search a.button span,
+  .search a.button:nth-last-child(2){
+    display: none;
+  }
+  .search a.button.fas {
+    display: block;
+    width: 25%;
+    height: 94%;
+    text-align: center;
+    padding: 3%;
+  }
+  
+
+/*---------------COUNTRY PLACES---------------*/
+  .country{  font-size: 100%;}
+  .country span{  display: none; }
+  .country-card{
+    min-width: 48%;
+    font-size: 70%;
+  }
+  [data-pagination] {
+    font-size: 15pt;
+  }
+/*---------------BUY & SALE---------------*/
+  .buy-form > div:nth-child(3){ 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .buy-form > div:nth-child(3) > div {
+    text-align: justify;
+    width: fit-content;
+  }
+  .buy-feedback,
+  .buy-form > div:last-child > div {
+    width: 100%;
+  }
+  .buy-form > div:last-child a {
+    width: 50%;
+    text-align: center;
+  }
+  .buy-feedback p{ flex-flow: row wrap; }
+
+  .map-card{ width: 45%; }
+
+  /* .country div:first-child p{
+    width: 70%;
+  } */
+  .country .sr1{ display: none; }
+  .country .sr2{ display: inline-block; }
+
+  .place-description { min-width: 70%;  }
+  /* .place-sames > .low-price-places,
+  .place-recently > .low-price-places{ flex-flow: row wrap; } */
+
+  .place-sames > .low-price-places fieldset,
+  .place-recently > .low-price-places fieldset{ 
+    /* width: 40%; */
+    font-size: 100%;  
+  }
+
+  .contacts iframe{ max-width: 100%;}
+  .contacts >div{ width: 100%;}
+  .address{ order: -1;}
+  .address >div:first-child{ padding: 0;  }
+  .address > div:last-child { justify-content: space-around; }
+
+  #contact-about{ text-align: center; }
+  #about{ width: 100%;  }
+
+  .place:not(.comp), .place-header{  flex-flow: row wrap;}
+  /* .place.comp {
+    overflow-x: scroll;
+} */
+
+  .place-icons{ 
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .place-icons div{ width: 30%; }
+  .place-icons h1{ width: fit-content;}
+  /* .place-icons figure{order: -1;} */
+  .locality{  display: none;}
+  .place-price{
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .place-price h2 {
+    width: 100%;
+    text-align: center;
+}
+  .place-price div p:last-child {
+    width: 100%;
+    text-align: center;
+}
+  .place-price div{ justify-content: center;}
+  /* .place-price p:last-child { padding-bottom: 0;} */
+  .place-description{ padding: 1% 0;}
+
+  .road{ flex-flow: row wrap;}
+  .road > div, .road div:last-child{ width: 100%;}
+
+  .road-places > div:last-child {  overflow-x: auto;}
+  /* .road-places table div { 
+    overflow-x: hidden;
+    min-width: 10%;
+    overflow-y: hidden;
+  }
+  .road table{table-layout: fixed; width: 100%;} */
+
+  .personal-buttons{  display: none;}
+  .personal-combo{  display: block;}
+  .personal-header .button-negative{  padding: 2% 3%;} 
+
+  .search-description{ font-size: 90%;}
+  .personal-searches { flex-flow: row wrap;}
+  .personal-searches a{ margin-bottom: 1%;}
+
+  .personal-info > div:first-child{ width: 100%;}
+  .personal-info > div:last-child{ width: 80%;}
+  .personal-feedback{ width: 100%;}
+  
+}
+@media screen and (max-width: 450px){
+  header .phone h3{ display: none; }
+
+  header .accordeon.menu__box{  width: 100%;}
+/*---------------MAIN PAGE---------------*/
+
+  .button-buy-sale { 
+    width: 47%;
+    margin: 0 0.5%;
+  }
+  .main-search form > div:last-child div {
+    width: 98%;}
+  .main-search form > div:last-child div a{
+    width: 90%;
+    margin-bottom: 1%;
+  }
+  .top h3{ width: 50%; }
+
+  .form-mobile .popup-search figure,
+  .form-city figure { width: 100%;}
+  .form-mobile select, .form-city select,
+  .form-mobile input[type="text"],
+  .form-city input[type="text"]{ width: 100%; }
+  .form-mobile input[type="number"],
+  .form-city input[type="number"],
+  .form-mobile input[type="date"],
+  .form-city input[type="date"]{ width: 40%; }
+
+/*---------------COUNTRY PLACES---------------*/
+  [data-pagination] {
+    font-size: 12pt;
+  }
+  .country > div:first-child p{
+    width: min-content;
+  }
+  .country-places{
+    justify-content: center ;
+  }
+  .country-card{
+    min-width: 98%;
+  }
+/*---------------BUY & SALE---------------*/
+  .buy-form input { width: 100%;}
+  .buy-form p { text-align: left;}
+  .buy-form > div:last-child a:last-child { 
+    width: 100%; }
+
+  .map-road{  justify-content: center;}
+  .map-card{ width: 90%;}
+
+  .place-icons div{ width: 100%; }
+  .place-description { min-width: fit-content;  }
+
+  .place-sames > .low-price-places fieldset,
+  .place-recently > .low-price-places fieldset{ 
+    /* width: 100%; */
+    font-size: 90%;
+
+  }
+
+
+  .mortgage, .mortgage a.button{ width: 100%; text-align: center;}
+  .place-icons, .place-description  { font-size: 90%;}
+  .place-price{ font-size: 100%;}
+  .place-icons figure{ display: none;}
+
+  .road-places > div:nth-child(1){  display: none;}
+  .road-places > div:nth-child(2){  display: block;}
+
+  .road-places > div:nth-child(2) select{  font-size: 100%;}
+
+  .personal-searches { justify-content: center;}
+  .personal-searches a{ width: 100%; margin-bottom: 2%;}
+
+  .personal-feedback p{ flex-flow: row wrap;}
+  .personal-feedback input{ width: 100%;}
+}

@@ -1,0 +1,77 @@
+{% extends 'main/layout.html' %}
+
+{% block description %}<meta name="description" content= "ЗемляИрк поможет купить любой земельный участок, дом, коттедж и другое 
+на любой вкус. Просто отправьте нам заявку и наши менеджеры тут же свяжутся с нами!"> {% endblock %}
+{% block title %}ЗемляИрк - Купить участок, коттедж, дом, дачу и другое в Иркутске{% endblock %}
+{% block content %}
+
+
+<div class="left-statistic">
+    <h3>Сегодня в Иркутске продаются:</h3>
+    <div>
+        <p><i class="fas fa-warehouse"></i> 1945 объектов</p>
+        <p><i class="fas fa-vector-square"></i> 1600га земли</p>
+        <p><i class="fas fa-door-closed"></i> 789м<sup>2</sup> жилья</p>
+    </div>
+    <div>
+        <h4>Из них земель:</h4>
+        <p><i class="fas fa-home"></i> 66 дач</p>
+        <p><i class="fas fa-building"></i> 26 коттеджей</p>
+        <p><i class="fas fa-key"></i> 10 квартир</p>
+    </div>
+</div>
+
+</aside>
+
+<section>
+    <section class="search">
+        <form class="search-panel">
+            <input placeholder="Поиск"></input>
+            <a href="search.html" type="button" class="fa fa-search"> </a>
+        </form>
+        <a href="{% url 'search' %}" type="button" class="button"><span>Расширенный</span>&nbsp;поиск</a>
+        <a href="{% url 'search' %}" type="button" class="button fas fa-search-location fa-2x"></a>
+    </section>
+    <section class="breadcrumbs">
+        <a href="{% url 'mainpage' %}">Главная</a>
+        <p>Купить</p>
+    </section>
+
+
+    <section>
+        <form class="buy-form" method="POST" action="{% url 'add_buy_feedback' %}">
+            {% csrf_token %}
+            <h1>Купить</h1>
+            <label> </label>
+            <div>
+                <div>
+                    <p><input type="radio" name="radio-buy" id="country" class="radios" checked><label for="country" > участок,
+                            дачу, коттедж</label></p>
+                    <p><input type="radio" name="radio-buy" id="city" class="radios"><label for="city"> квартиру, офис
+                            или гараж</label></p>
+                    <p><input type="radio" name="radio-buy" id="other" class="radios"><label for="other"> другой объект
+                            недвижимости</label></p>
+                </div>
+            </div>
+            <div class="buy-feedback">
+                <p><label for="name">Как Вас зовут</label><input type="text" size="20" id="name" name="name" required></p>
+                <p><label for="phone">Телефон или </br>Email</label><input type="tel" size="20" id="phone" name="email_phone" required></p>
+                <!-- <p><label for="mail">Email</label><input type="email" size="20" id="mail" name="email_phone" required></p> -->
+            </div>
+
+            
+            <textarea cols="47" rows="7" id="desc" placeholder="Описание" name="message"></textarea>
+            
+            <div>
+                <div>
+                <!-- <a class="fa fa-paperclip fa-2x" href="#"></a> -->
+                    <input type="text" name="for_sale" value="False" hidden>
+                    <button type="submit" class="button">Отправить</button>
+                </div>
+            </div>
+
+        </form>
+    </section>
+</section>
+
+{% endblock %}

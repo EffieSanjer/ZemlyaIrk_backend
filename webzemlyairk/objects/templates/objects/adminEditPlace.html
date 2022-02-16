@@ -1,0 +1,268 @@
+{% extends 'admin/admin_layout.html' %}
+{% load l10n %}
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<a href="{% url 'objects' %}">Все объекты</a>
+<p>Редактировать объект №{{obj.id}}</p>
+</div>
+<!-- <h4 class="user">Иван Иванов</h4> -->
+<h1 class="col-md-6 col-12">Редактировать объект №{{obj.id}}</h1>
+</section>
+<section>
+    <form method="POST" action="{% url 'edit_place' obj.id %}">
+        {% csrf_token %}
+        <div class="form-row pl-1">
+            <div class="form-group form-row col-lg-4 ">
+                <label for="seller">Продавец</label>
+                <a href="#" class="fas fa-plus mt-1 ml-2"></a>
+                <input type="text" class="form-control col-12" id="seller" name="seller" value="{{obj.seller.id}}" readonly required>
+            </div>
+            <div class="form-group col-lg-4 p-0 p-lg-1">
+                <label for="phone">Телефон</label>
+                <input type="tel" class="form-control" id="phone" value="{{obj.seller.phone1}}" readonly>
+            </div>
+            <div class="form-group col-lg-4 p-0 p-lg-1">
+                <label for="inputCadNum">Кадастровый номер</label>
+                <input type="number" class="form-control" id="inputCadNum" name="cadast_num"  value="{{obj.cadast_num}}" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-lg-3">
+                <label>Тип объекта</label>
+                <select class="form-control" name="type" readonly>
+                    {% for n in o.type_dict %}
+                        <option value="{{n.0}}" {% if obj.type == n.0 %} selected {% endif %}>{{n.1}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-lg-3">
+                <label>Направление</label>
+                <select class="form-control" name="locality" disabled>
+                    {% for l in parents %}
+                    <option value="{{l.id}}" {% if obj.locality_id == l.id %} selected {% endif %}>{{l.show_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-lg-3">
+                <label>Предок</label>
+                <select class="form-control" name="parent">
+                    {% for l in childs %}
+                    <option value="{{l.id}}" {% if obj.parent_id == l.id %} selected {% endif %}>{{l.show_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group form-row col-lg-3 justify-content-between">
+                <label for="LongParent">Удаленность от предка</label>
+                <input type="number"  class="form-control col-10" id="LongParent" name="distance" value="{{obj.distance|unlocalize}}" step="0.01" min="0" max="10000"  required>
+                <label>км</label>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-12">
+                <label for="inputГород">Адрес</label>
+                <input type="text" class="form-control" id="inputГород" name="address"  value="{{obj.address}}" required>
+            </div>
+        </div>
+
+        <div class="form-row justify-content-between">
+            <div class="form-group col-lg-4">
+                <label>Назначение</label>
+                <select class="form-control" name="purpose">
+                    <option value="1">Для хозяйства</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-4">
+                <label>Владение</label>
+                <select class="form-control" name="posession">
+                    <option value="1">Собственность</option>
+                </select>
+            </div>
+            <div class="form-group form-row col-lg-2 pl-2">
+                <label for="square" class="col-12">Площадь</label>
+                <input type="number" step="0.01" class="form-control col-lg-8 col-11" id="square" name="area"  value="{{obj.area|unlocalize}}" required>
+                <label class="ml-2">м<sup>2</sup></label>
+            </div>
+            <div class="form-group form-row col-lg-2 pr-0 pl-2">
+                <label for="onjsq" class="col-12 p-0">Площадь объекта</label>
+                <input type="number" step="0.01" class="form-control col-lg-8 col-11" id="objsq" name="object_area" value="{{obj.object_area|unlocalize}}" required>
+                <label class="ml-2">м<sup>2</sup></label>
+            </div>
+        </div>
+
+        <div class="form-row px-lg-1">
+            <div class="form-group form-row col-lg-6 pl-2">
+                <label>Характеристики</label>
+                <select class="form-control col-11">
+                    <option>красивый садик</option>
+                    <option>свежий воздух</option>
+                </select>
+                <a href="#" class="fas fa-plus m-auto"></a>
+            </div>
+            <div class="form-group form-row col-lg-6 pl-2">
+                <label>Инфраструктура</label>
+                <select class="form-control col-11">
+                    <option>гараж</option>
+                    <option>подполье</option>
+                </select>
+                <a href="#" class="fas fa-plus m-auto"></a>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-lg-6">
+                <div class=" flex-wrap">
+                    <button type="button" class="btn btn-primary my-2 mr-2">свежий воздух
+                        <a href="#" class="fas fa-trash"></a></button>
+                    <button type="button" class="btn btn-primary my-2 mr-2">красивый сад
+                        <a href="#" class="fas fa-trash"></a></button>
+                    <button type="button" class="btn btn-primary my-2 mr-2">красивый сад
+                        <a href="#" class="fas fa-trash"></a></button>
+                    <button type="button" class="btn btn-primary my-2 mr-2">красивый сад
+                        <a href="#" class="fas fa-trash"></a></button>
+                    <button type="button" class="btn btn-primary my-2 mr-2">красивый сад
+                        <a href="#" class="fas fa-trash"></a></button>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="flex-wrap">
+                    <button type="button" class="btn btn-info my-2 mr-2">гараж
+                        <a href="#" class="fas fa-trash"></a>
+                    </button>
+                    <button type="button" class="btn btn-info my-2 mr-2">гараж
+                        <a href="#" class="fas fa-trash"></a>
+                    </button>
+                    <button type="button" class="btn btn-info my-2 mr-2">гараж
+                        <a href="#" class="fas fa-trash"></a>
+                    </button>
+                    <button type="button" class="btn btn-info my-2 mr-2">гараж
+                        <a href="#" class="fas fa-trash"></a>
+                    </button>
+                    <button type="button" class="btn btn-info my-2 mr-2">подполье
+                        <a href="#" class="fas fa-trash"></a>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="form-row ">
+            <div class="form-group col-12">
+                <label>Описание</label>
+                <textarea rows="5" class="form-control w-100" name="description">{{obj.description}}</textarea>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-lg-3">
+                <label for="r">Рейтинг</label>
+                <input type="number" min="0" max="5" class="form-control" id="r" name="rating" value="{{obj.rating}}" required>
+            </div>
+            <div class="form-group col-lg-4">
+                <label>Статус</label>
+                <select class="form-control" name="status">
+                    {% for n in o.status_dist %}
+                        <option value="{{n.0}}" {% if obj.status == n.0 %} selected {% endif %}>{{n.1}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-lg-5">
+                <label>Источник</label>
+                <input class="form-control" name="source"  value="{{obj.source}}" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-lg-8">
+                <label for="link">Ссылка на обзор</label>
+                <input type="text" class="form-control" id="link" name="link" value="{{obj.link}}">
+            </div>
+            <div class="form-group form-row col-lg-4">
+                <label for="resp">Ответственный</label>
+                <a href="#" class="fas fa-plus mt-1 ml-2"></a>
+                <input type="text" class="form-control col-12" id="resp" value="{{obj.resp}}">
+            </div>
+        </div>
+        
+
+        <div class="form-row pl-lg-1 justify-content-between">
+            <div class=" form-row col-lg-3">
+                <label for="cost" class="m-0 col-12">Стоимость продавца</label>
+                <input type="number" step="0.01" class="form-control col-lg-7 col-10" id="cost" name="cost" value="{{obj.cost|unlocalize}}" required>
+                <label class="ml-1 mt-1">руб.</label>
+            </div>
+            <div class=" form-row col-lg-2 px-lg-2 px-1">
+                <label for="com" class="m-0 col-12">Комиссия</label>
+                <input type="number" step="0.01" class="form-control col-lg-6 col-10" id="com" value="1" name="comission"  value="{{obj.comission|unlocalize}}" required>
+                <label class="ml-1 mt-1">руб.</label>
+            </div>
+            <div class="form-row col-lg-2 px-lg-2 px-1">
+                <label for="sum" class="m-0 col-12">Общая сумма</label>
+                <input type="number" class="form-control col-lg-6 col-10" id="sum" readonly>
+                <label class="ml-1 mt-1">руб.</label>
+            </div>
+            <div class="form-group col-lg-5 p-0">
+                <label for="cond" class="mb-3">Условия цены</label>
+                <input type="text" class="form-control" id="cond" name="price_conditions"  value="{{obj.price_conditions}}">
+            </div>
+        </div>
+
+        <div class="form-row mb-3 m-0 px-3">
+            <div class="form-check col-12 col-lg-3">
+                <input class="form-check-input" type="checkbox" id="good" name="good_price" {% if obj.good_price %} checked {% endif %} >
+                <label class="form-check-label" for="good">
+                    Хорошая цена
+                </label>
+            </div>
+            <div class="form-check col-12 col-lg-2">
+                <input class="form-check-input" type="checkbox" id="bargain" name="bargain" {% if obj.bargain %} checked {% endif %}>
+                <label class="form-check-label" for="bargain">
+                    Торг
+                </label>
+            </div>
+            <div class="form-check col-12 col-lg-4">
+                <input class="form-check-input" type="checkbox" id="invest" name="invest_attract" {% if obj.invest_attract %} checked {% endif %}>
+                <label class="form-check-label" for="invest">
+                    Инвестиционная привлекательность
+                </label>
+            </div>
+        </div>
+
+        <div class="form-row ">
+            <div class="form-group col-lg-3 ">
+                <label for="Широта">Широта</label>
+                <input type="number" step="0.000001" class="form-control" id="Широта" name="latitude" value="{{obj.latitude|unlocalize}}" readonly>
+            </div>
+            <div class="form-group col-lg-3 ">
+                <label for="Долгота">Долгота</label>
+                <input type="number" step="0.000001" class="form-control" id="Долгота" name="longitude" value="{{obj.longitude|unlocalize}}" readonly>
+            </div>
+            <div class="form-group d-flex mb-3 col-lg-3 align-items-end justify-content-center ">
+                <button type="reset" class="btn btn-outline-danger col-lg-10 col-12 " disabled>Сбросить</button>
+            </div>
+            <div class="form-group d-flex mb-3 col-lg-3 align-items-end justify-content-center ">
+                <button type="submit" class="btn btn-outline-primary col-12" disabled>Установить</button>
+            </div>
+        </div>
+    
+</section>
+<section>
+    <div>
+        <iframe src="https://yandex.ru/map-widget/v1/-/CCUQ6GH-TB" width="100%" height="500"
+            allowfullscreen="true"></iframe>
+    </div>
+</section>
+
+<section>
+    <h4 class="my-3">Фотографии <a href="#" class="fas fa-plus"></a></h4>
+    <div class="media flex-wrap">
+        <img src="images/no-photo.jpg" width="150px" class="mr-2"><a href="#" class="fas fa-trash mr-3"></a>
+        <img src="images/no-photo.jpg" width="150px" class="mr-2"><a href="#" class="fas fa-trash mr-3"></a>
+        <img src="images/no-photo.jpg" width="150px" class="mr-2"><a href="#" class="fas fa-trash mr-3"></a>
+    </div>
+</section>
+
+<section class="row py-4 w-100 my-md-3 mx-auto justify-content-end">
+    <button type="reset" class="btn btn-secondary col-md-3 col-12 mx-md-2 my-1">Сбросить</button>
+    <button type="submit" class="btn btn-success col-md-3 col-12 mx-md-2 my-1">Сохранить</button>
+
+
+</section>
+</form>
+{% endblock %}

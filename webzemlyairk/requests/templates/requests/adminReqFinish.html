@@ -1,0 +1,136 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<a href="{% url 'all_requests' %}">Заявки</a>
+<p>Заявка №{{order.id}}</p>
+</div>
+<!-- <h4 class="user">Иван Иванов</h4> -->
+<h1>Завершение заявки №{{order.id}}</h1>
+</section>
+<section class="row mx-auto">
+    <div class="col-lg-7 col-12">
+        <div class="row py-md-4 pr-lg-5">
+            <h4 class="col-12 p-0">{{order.name}} 
+                {% if order.for_sale %}
+                    <a href="" title="На продажу" class="fas fa-arrow-circle-up text-danger"></a>
+                {% else %}
+                    <a href="" title="На покупку" class="fas fa-arrow-circle-down text-danger"></a>
+                {% endif %}
+            </h4>
+            <p class="col-md-8 col-4 p-0">Объект: </p>
+            <a href="{% url 'place' order.object.id %}" class="col-md-4 col-8 text-right p-0"> №{{order.object.id}}</a>
+
+            <p class="col-md-7 col-12 m-0 m-md-auto p-0">Покупатель: </p>
+            <a href="{% url 'client_item' order.customer.id %}" class="col-md-5 col-12 text-md-right p-0">{{order.customer}}</a>
+
+            <p class="col-md-7 col-12 mb-0 mt-2 m-md-auto p-0">Продавец: </p>
+            <a href="{% url 'client_item' order.seller.id %}" class="col-md-5 col-12 text-md-right p-0">{{order.seller}}</a>
+        </div>
+
+        <div class="row py-md-4 pr-lg-5 ">
+            <p class="col-md-8 col-12 p-0 p-md-auto mb-0 mt-2">ЗемляИрк получает:</p>
+            <p class="col-md-4 col-12 text-md-right p-0"><span>{{order.object.comission}}</span> руб.</p>
+
+            <p class="col-md-8 col-12 p-0 p-md-auto mb-0 mt-2">Продавец получает:</p>
+            <p class="col-md-4 col-12 text-md-right p-0 "><span>{{order.object.cost}}</span> руб.</p>
+
+            <p class="col-md-8 col-12 p-0 p-md-auto mb-0 mt-2">Покупатель оплачивает:</p>
+            <p class="col-md-4 col-12 text-md-right p-0"><span>{{ order.object.cost|add:order.object.comission }}</span> руб.</p>
+        </div>
+
+        <div class="row py-md-4 pr-lg-5 ">
+            <p class="col-md-8 col-12 p-0 p-md-auto mb-0 mt-2">Договор между сторонами подписан:</p>
+            <p class="col-md-4 col-12 text-md-right p-0">{{order.date_signed}}</p>
+
+            <p class="col-md-8 col-12 p-0 p-md-auto mb-0 mt-2">Расчет между сторонами произведен:</p>
+            <p class="col-md-4 col-12 text-md-right p-0">{{order.date_payment}}</p>
+
+            <p class="col-md-8 col-12 p-0 p-md-auto mb-0 mt-2">Документы сданы в ФРС:</p>
+            <p class="col-md-4 col-12 text-md-right p-0">{{order.date_frs}}</p>
+
+            <p class="col-md-8 col-12 p-0 p-md-auto mb-0 mt-2">Расчет с нашей компанией произведен:</p>
+            <p class="col-md-4 col-12 text-md-right p-0">{{order.date_payment_us}}</p>
+        </div>
+
+
+    </div>
+
+    <div class="col-lg-5 col-12 p-0 p-md-auto">
+
+        <p class="col-12 m-auto text-right py-3 p-0">Дата соглашения:
+            <span class="col-12 col-md-auto d-inline-block p-0"> {{order.date_signed}}</span>
+        </p>
+        <h3 class="col-12 m-auto text-right py-3 p-0">Стоимость:
+            <span class="col-12 col-md-auto d-inline-block p-0"> {{ order.object.cost|add:order.object.comission }} руб.</span>
+        </h3>
+
+        <div class="card my-3">
+            <p class="card-header p-2">Участники</p>
+            <ul class="list-group list-group-flush members">
+                {%for m in order.members.all%}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                     {{m}}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-12 py-2 p-0">
+            <div class="list-group docs finish">
+                <div href="#" class="list-group-item list-group-item-action">
+                    <div class="d-sm-flex w-100 justify-content-between">
+                        <h5 class="mb-1"><a href=""> Документ.docx</a></h5>
+                        <p class="w-100 d-flex justify-content-sm-around justify-content-between">
+                            <small>1.2Мб</small>
+                            <small>01.02.2021</small>
+                        </p>
+                    </div>
+                    <p class="d-flex w-100 justify-content-between py-3 m-0">
+                        <small>Олег Банкин</small>
+                        
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<section class="row mx-auto">
+    <div class="col-lg-7 col-12 p-0">
+        
+        <div class="col-12 mt-3 comments p-0">
+            {%for m in order.order_comm.all%}
+            <div class="card p-0 col-12 my-2">
+                <div class="card-header d-flex px-5 py-2 justify-content-between align-items-center">
+                    <p class="m-0 "> {{m.date}}</p>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{m.emp}}</h4>
+                    <p class="card-text">
+                        {{m.message}}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+
+</section>
+<form class="row py-4 w-100 my-md-3 mx-auto" method="POST" action="{% url 'finish_req' order.id %}">
+    {% csrf_token %}
+    <div class="form-check form-check-inline col-md-5 p-0">
+        <!-- <input class="form-check-input my-auto" type="checkbox" value="" id="delete">
+        <label class="form-check-label" for="delete">Удалить объект</label> -->
+    </div>
+    <a href="{% url 'order_item' order.id %}" class="btn btn-secondary col-md-3 col-12 mx-md-2 my-1">Отменить</a>
+    <button type="submit" class="btn btn-success col-md-3 col-12 mx-md-2 my-1">Завершить</button>
+
+
+</from>
+{% endblock %}

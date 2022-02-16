@@ -1,0 +1,189 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<p>Заявки</p>
+</div>
+
+<h1>Заявки </h1>
+<nav class="navbar bg-light">
+    <form class="form-group w-100">
+        <div class="form-row">
+            <div class="col-lg-3 col-12 my-2">
+                <input type="text" class="form-control " placeholder="Телефон">
+            </div>
+            <div class="col-lg-9 form-inline col-12 justify-content-md-between">
+                <label for="date1" class="form-label col-auto col-lg-3 p-0">Окончание с </label>
+                <input type="date" id="date1" class="form-control col-12 col-md-4">
+                <label for="date2" class="col-md-1 col-auto p-0">по </label>
+                <input type="date" id="date2" class="form-control col-12 col-md-4 ">
+            </div>
+        </div>
+        <div class="form-row ">
+            <div class="col-md-2 col-12 my-2">
+                <input type="text" class="form-control" placeholder="№ заявки">
+            </div>
+            <div class="col-md-4 col-12 my-2">
+                <select class="form-control">
+                    <option value="">Земельный участок</option>
+                    <option value="">Промышленная база</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-12 my-2">
+                <input type="text" class="form-control" placeholder="Направление">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-lg-2 col-md-6 col-12">
+                <input type="text" class="form-control my-2" placeholder="ID клиента">
+            </div>
+            <div class="col-lg-2 col-md-6 col-12">
+                <input type="text" class="form-control my-2" placeholder="ID участника">
+            </div>
+            <div class="col-lg-8 form-inline col-12 justify-content-md-between">
+                <label for="date1" class="form-label col-auto col-lg-3 p-0">Начало с</label>
+                <input type="date" id="date1" class="form-control col-12 col-md-4">
+                <label for="date2" class="col-md-1 col-auto p-0">по </label>
+                <input type="date" id="date2" class="form-control col-12 col-md-4 ">
+            </div>
+        </div>
+        <div class="form-row my-2">
+            <div class="col-md-9 col-12">
+                <input class="form-control" type="search" placeholder="Поиск по слову">
+            </div>
+            <div class="col-md-3 col-12">
+                <button class="btn btn-outline-primary w-100 mt-2 mt-md-0" type="submit">Поиск</button>
+            </div>
+        </div>
+    </form>
+</nav>
+</section>
+
+<form method="GET" action="{% url 'all_requests' %}" class="request-bar">
+    <ul class="nav nav-pills">
+        <li class="nav-item my-2 col-sm-auto col-12 pl-0">
+            <a class="nav-link btn btn-outline-primary" href="{% url 'add_req' %}">Создать</a>
+        </li>
+        <li class="nav-item mr-2 my-2 col-sm-auto col-12 pl-0">
+            <!-- <p class="mb-0 col-auto">Сортировать -->
+            <select class="form-control w-auto" name="sort" onchange="this.form.submit()">
+                <option value="-id" {% if sort == '-id' %} selected {% endif %}>Сначала новые</option>
+                <option value="id" {% if sort == 'id' %} selected {% endif %}>Сначала старые</option>
+                <option value="date_end" {% if sort == 'date_end' %} selected {% endif %}>По дате окончания</option>
+            </select>
+            <!-- </p> -->
+        </li>
+        <li class="nav-item mr-2 my-2 col-sm-auto col-12 pl-0">
+            <select class="form-control w-auto col-12">
+                <option>На продажу</option>
+                <option>На покупку</option>
+            </select>
+        </li>
+        <li class="nav-item my-2 col-sm-auto col-12 pl-0">
+            <select class="form-control w-auto col-12" >
+                <option >Активные</option>
+                <option >Приостановленные</option>
+                <option>Завершенные</option>
+            </select>
+        </li>
+        <li class="nav-item my-2 col-sm-auto col-12 pl-0">
+            <select class="form-control w-auto col-12" name="show"  onchange="this.form.submit()">
+                <option value="3" {% if show == 3 %} selected {% endif %}>3</option>
+                <option value="4" {% if show == 4 %} selected {% endif %}>4</option>
+                <option value="5" {% if show == 5 %} selected {% endif %}>5</option>
+            </select>
+        </li>
+        
+    </ul>
+</form>
+
+<section class="request-cards">
+    {% for r in req %}
+    <div class="card">
+        <div class="row p-2 m-0">
+            <div class="col-lg-2 col-12">
+                <p>№{{r.id}}</p>
+                <p>{{r.date_start}}</p>
+                <p class="bg-danger">{{r.date_end}}</p>
+                <p> <i class="fas fa-exclamation"></i>{{r.get_urgency_display}}</p>
+            </div>
+
+            <div class="col-lg-4 col-12">
+                <p> <a href="{% url 'order_item' r.id %}">{{r.name}}</a> </p>
+                <p>{{r.get_type_display}}</p>
+                <p>Покупатель: {{r.customer.full_name}}</p>
+                <p>Продавец: {{r.seller.full_name}}</p>
+
+            </div>
+            <div class="col-lg-4 col-12" >
+                <p id='desc'>{{r.description}}</p>
+            </div>
+
+            <div class="col-lg-2 col-12">
+                <a  class="btn btn-success w-100 mb-2">{{r.get_status_display}}</a>
+                <a class="btn btn-primary w-100">{% if r.for_sale %}На продажу{% else %}На покупку{% endif %}</a>
+
+                <!-- <div class="my-3 row justify-content-around">
+                    <a href="#" class="fas fa-star"></a>
+                    <a href="" class="fas fa-trash" data-toggle="modal" data-target="#exampleModal"></a>
+
+                </div> -->
+            </div>
+        </div>
+
+        <div class="progress m-2" style="height: 20px;">
+            <div class="progress-bar" role="progressbar" style="width: {{r.progress}}%" aria-valuenow="{{r.progress}}" aria-valuemin="0"
+                aria-valuemax="100">{{r.progress}}</div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <form method="POST" action="{% url 'delete_req' r.id %}">
+                        {% csrf_token %}
+                        <h5 class="modal-title pb-4" id="exampleModalLabel">Удалить заявку №{{r.id}}?</h5>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                aria-label="Close">Отмена</button>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</section>
+
+<section class="col-12 mt-2">
+    <nav aria-label="Пример навигации по страницам">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not prev %} disabled {% endif %}">
+                <a class="page-link" href="{{ prev }}&sort={{sort}}&show={{show}}" tabindex="-1" aria-disabled="true">&#171;</a>
+            </li>
+            {% for x in req.paginator.page_range %}
+                {% if  x == req.number %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ x }}&sort={{sort}}&show={{show}}">{{ x }}</a></li>
+                {% elif x > req.number|add:-3 and x < req.number|add:3 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ x }}&sort={{sort}}&show={{show}}">{{ x }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            <li class="page-item {% if not next %} disabled {% endif %}">
+                <a class="page-link" href="{{ next }}&sort={{sort}}&show={{show}}">&#187;</a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
+{% endblock %}

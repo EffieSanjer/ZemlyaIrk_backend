@@ -1,0 +1,655 @@
+{% extends 'main/layout.html' %}
+
+{% block description %}<meta name="description" content= "Компания ЗемляИрк имеет самый мощный сервис по 
+поиску недвижимости в Иркутске и Иркутской области. Заходите на сайт и ищите участки, коттеджи, дома на любой вкус."> {% endblock %}
+{% block title %}ЗемляИрк - Поиск участков, коттеджей, домов, дач и другого в Иркутске.{% endblock %}
+{% block content %}
+<div class="left-statistic">
+    <h3>Сегодня в Иркутске продаются:</h3>
+    <div>
+        <p><i class="fas fa-warehouse"></i> 1945 объектов</p>
+        <p><i class="fas fa-vector-square"></i> 1600га земли</p>
+        <p><i class="fas fa-door-closed"></i> 789м<sup>2</sup> жилья</p>
+    </div>
+    <div>
+        <h4>Из них земель:</h4>
+        <p><i class="fas fa-home"></i> 66 дач</p>
+        <p><i class="fas fa-building"></i> 26 коттеджей</p>
+        <p><i class="fas fa-key"></i> 10 квартир</p>
+    </div>
+</div>
+
+</aside>
+
+<section>
+    <!-- <section class="search">
+                <form class="search-panel">
+                    <input placeholder="поиск"></input>
+                    <a href="#" type="button" class="button">Расширенный поиск &nbsp&nbsp<i class="fa fa-search"> </i></a>
+                </form>
+            </section> -->
+    <section class="breadcrumbs">
+        <a href="{% url 'mainpage' %}">Главная</a>
+        <p>Расширенный поиск</p>
+    </section>
+
+    <h1>Поиск</h1>
+    <div class="search-tabs">
+        <input type="radio" name="inset" value="" id="tab_1" checked>
+        <label for="tab_1">Загородная недвижимость</label>
+
+        <input type="radio" name="inset" value="" id="tab_2">
+        <label for="tab_2">Городская недвижимость</label>
+
+        <div class="main-search" id="div_1">
+            <h2>Найти недвижимость</h2>
+            <form class="form-desktop">
+                <div>
+                    <figure>
+                        <p><label>Тип недвижимости</label></p>
+                        <p><select>
+                                <option >Земельный участок</option>
+                                <option>Дача</option>
+                                <option>Коттедж</option>
+                                <option>Промышленная база</option>
+                                <option >Бизнес-объект</option>
+                                <option>Готовый бизнес</option>
+                                <option>Таунхауз</option>
+                                <option>Дом</option>
+                            </select></p>
+                    </figure>
+    
+                    <figure>
+                        <p><label for="to">Направление</label></p>
+                        <p><input type="text" size="51" id="to"></p>
+                    </figure>
+                    <figure>
+                        <p><label for="cost">Стоимость</label></p>
+                        <p><input type="number" id="cost" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>руб</label>
+                        </p>
+                    </figure>
+    
+                    <figure>
+                        <p><label for="square">Площадь</label></p>
+                        <p><input type="number" id="square" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>м<sup>2</sup></label>
+                        </p>
+                    </figure>
+                    <figure>
+                        <p><label for="district">Удаленность от района</label></p>
+                        <p><input type="number" id="district" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>км</label>
+                        </p>
+                    </figure>
+                </div>
+    
+                    <a href="" style="margin-left: 3%;" id="button_hide1" onclick="diplay_hide('#block_id');return false;">Открыть дополнительные параметры</a>
+                    <div id="block_id" style="display: none;">
+                        <figure>
+                            <p><label for="date">Добавлено</label></p>
+                            <p><input type="date" id="date">
+                                <label>по</label>
+                                <input type="date">
+                            </p>
+                        </figure>
+                        <figure>
+                            <p><label>Владение</label></p>
+                            <p><select>
+                                    <option>Собственность</option>
+                                    <option>Не собственность</option>
+                                    <option>Садоводческая книжка</option>
+                                    <option>Аренда</option>
+                                    <option>Пожизненно наследуемое владение</option>
+                                    <option>Членская книжка</option>
+                                </select></p>
+                        </figure>
+                        <figure>
+                            <p><label for="irk">Удаленность от Иркутска</label></p>
+                            <p><input type="number" id="irk" placeholder="от">
+                                <input type="number" placeholder="до">
+                                <label>км</label>
+                            </p>
+                        </figure>
+        
+                        <figure>
+                            <p><label>Назначение</label></p>
+                            <p><select>
+                                    <option>Для индивидуального жилищного строительства</option>
+                                    <option>Для организации садоводства и жилищного строительства</option>
+                                    <option>Для ведения личного подсобного хозяйства</option>
+                                    <option>Земли водного и лесного фонда</option>
+                                    <option>Земли особо охраняемых территорий</option>
+                                    <option>Земли промышленности, транспорта, энергетики</option>
+                                    <option>Для ведения крестьянско-фермерского хозяйства</option>
+                                    <option>Для организации садоводства и дачного строительства</option>
+                                </select></p>
+                        </figure>
+                        <figure>
+                            <p><label for="cadastre">Кадастровый номер</label></p>
+                            <p><input type="text" id="cadastre" size="25"></p>
+                        </figure>
+                        <figure>
+                            <p><label for="tel">Телефон</label></p>
+                            <p><input type="tel" id="tel" size="17"></p>
+                        </figure>
+        
+                        <figure>
+                            <p><label for="object">№ объекта</label></p>
+                            <p><input type="number" id="object"></p>
+                        </figure>
+                        <div style="width: 100%;">
+                            <figure>
+                                <p><input type="checkbox" class="checks" id="photo">
+                                    <label for="photo">Только с фотографией </label>
+                                </p>
+                            </figure>
+                            <figure>
+                                <p><input type="checkbox" class="checks" id="price">
+                                    <label for="price">Хорошая цена</label>
+                                </p>
+                            </figure>
+        
+                        </div>
+                        <a href="#" onclick="diplay_hide('#block_id');return false;">Скрыть</a>
+    
+                    </div>
+    
+                <div>
+                    <div>
+                        <a href="#" type="reset" class="button-negative">Очистить</a>
+                        <a href="search.html" type="button" class="button">Искать</a>
+                    </div>
+                </div>
+    
+            </form>
+            <form class="form-mobile">
+                <div>
+                    <figure>
+                        <p><label for="to">Направление</label></p>
+                        <p><input type="text" size="100%" id="to"></p>
+                    </figure>
+                </div>
+    
+                <!-- <a href="#x" class="overlay-search" id="ext-search-mobile"></a> -->
+                <!-- <a href="#ext-search-mobile" id="full_btn" class="search-open underline">Показать больше</a> -->
+                <a href="" id="button_hide2" сlass="search-open underline" onclick="diplay_hide('#block_id_mobile');return false;">Показать больше</a>
+                <div id="block_id_mobile" style="display: none;">
+                    <figure>
+                        <p><label>Тип недвижимости</label></p>
+                        <p><select>
+                                <option>Земельный участок</option>
+                                <option>Дача</option>
+                                <option>Коттедж</option>
+                                <option>Промышленная база</option>
+                                <option>Бизнес-объект</option>
+                                <option>Готовый бизнес</option>
+                                <option>Таунхауз</option>
+                                <option>Дом</option>
+                            </select></p>
+                    </figure>
+    
+                    <figure>
+                        <p><label for="cost">Стоимость</label></p>
+                        <p><input type="number" id="cost" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>руб</label>
+                        </p>
+                    </figure>
+    
+                    <figure>
+                        <p><label for="square">Площадь</label></p>
+                        <p><input type="number" id="square" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>м<sup>2</sup></label>
+                        </p>
+                    </figure>
+                    <figure>
+                        <p><label for="district">Удаленность от района</label></p>
+                        <p><input type="number" id="district" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>км</label>
+                        </p>
+                    </figure>
+                    <figure>
+                        <p><label for="date">Добавлено</label></p>
+                        <p><input type="date" id="date">
+                            <label>по</label>
+                            <input type="date">
+                        </p>
+                    </figure>
+                    <figure>
+                        <p><label for="irk">Удаленность от Иркутска</label></p>
+                        <p><input type="number" id="irk" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>км</label>
+                        </p>
+                    </figure>
+                    <figure>
+                        <p><label for="cadastre">Кадастровый номер</label></p>
+                        <p><input type="text" id="cadastre" size="18"></p>
+                    </figure>
+    
+                    <figure>
+                        <p><label>Владение</label></p>
+                        <p><select>
+                                <option>Собственность</option>
+                                <option>Не собственность</option>
+                                <option>Садоводческая книжка</option>
+                                <option>Аренда</option>
+                                <option>Пожизненно наследуемое владение</option>
+                                <option>Членская книжка</option>
+                            </select></p>
+                    </figure>
+                    <figure>
+                        <p><label>Назначение</label></p>
+                        <p><select>
+                                <option>Для индивидуального жилищного строительства</option>
+                                <option>Для организации садоводства и жилищного строительства</option>
+                                <option>Для ведения личного подсобного хозяйства</option>
+                                <option>Земли водного и лесного фонда</option>
+                                <option>Земли особо охраняемых территорий</option>
+                                <option>Земли промышленности, транспорта, энергетики</option>
+                                <option>Для ведения крестьянско-фермерского хозяйства</option>
+                                <option>Для организации садоводства и дачного строительства</option>
+                            </select></p>
+                    </figure>
+                    <figure>
+                        <p><label for="tel">Телефон</label></p>
+                        <p><input type="tel" id="tel" size="15"></p>
+                    </figure>
+    
+                    <figure>
+                        <p><label for="object">№ объекта</label></p>
+                        <p><input type="number" id="object"></p>
+                    </figure>
+                    <div>
+                        <figure>
+                            <p><input type="checkbox" class="checks" id="photo">
+                                <label for="photo">Только с фотографией</label>
+                            </p>
+                        </figure>
+                        <figure>
+                            <p><input type="checkbox" class="checks" id="price">
+                                <label for="price">Хорошая цена</label>
+                            </p>
+                        </figure>
+    
+                    </div>
+                    <a href="" id="button_hide2" class="search-open underline" onclick="diplay_hide('#block_id_mobile');return false;">Скрыть</a>
+    
+                </div>
+    
+    
+    
+                <div>
+    
+                    <!-- <a href="#ext-search-mobile" id="full_btn" class="search-open underline">Показать больше</a> -->
+                    <!-- <a href="#x" class="search-close underline">Скрыть</a> -->
+    
+                    <div>
+                        <a href="#" type="reset" class="button-negative">Очистить</a>
+                        <a href="search.html" type="button" class="button">Искать</a>
+                    </div>
+                </div>
+    
+            </form>
+        </div>
+        <div class="main-search" id="div_2">
+            <h2>Найти недвижимость</h2>
+            <form class="form-city">
+                <div>
+                    <figure>
+                        <p><label>Город</label></p>
+                        <p><select>
+                                <option>Иркутск</option>
+                                <option>Ангарск</option>
+                                <option>Шелехов</option>
+                                <option>Черемхово</option>
+                                <option>Марково</option>
+                                <option>Большой Луг</option>
+                                <option>Малая Топка</option>
+                                <option>Дзержинск</option>
+                                <option>Пивовариха</option>
+                                <option>Молодежный</option>
+                                <option>Новолисиха</option>
+                                <option>Листвянка</option>
+                                <option>Плишкино</option>
+                            </select></p>
+                    </figure>
+                    <figure>
+                        <p><label>Район</label></p>
+                        <p><select>
+                                <option>Куйбышевский</option>
+                                <option>Ленинский</option>
+                                <option>Октябрьский</option>
+                                <option>Свердловский</option>
+                                <option>Кировский</option>
+                                <option>Сокол</option>
+                            </select></p>
+                    </figure>
+                    <figure>
+                        <p><label>Микрорайон</label></p>
+                        <p><select>
+                                <option>Первомайский</option>
+                                <option>Приморский</option>
+                                <option>Радужный</option>
+                                <option>Университетский</option>
+                                <option>Академгородок</option>
+                                <option>Студгородок</option>
+                            </select></p>
+                    </figure>
+
+                    <figure>
+                        <p><label for="street">Улица</label></p>
+                        <p><input type="text" size="20" id="street"></p>
+                    </figure>
+
+                    <figure>
+                        <p><label for="cost">Стоимость</label></p>
+                        <p><input type="number" id="cost" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>руб</label>
+                        </p>
+                    </figure>
+
+                    <figure>
+                        <p><label for="square">Площадь</label></p>
+                        <p><input type="number" id="square" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>м<sup>2</sup></label>
+                        </p>
+                    </figure>
+                    <figure>
+                        <p><label for="district">Удаленность от центра города</label></p>
+                        <p><input type="number" id="district" placeholder="от">
+                            <input type="number" placeholder="до">
+                            <label>км</label>
+                        </p>
+                    </figure>
+
+                    <figure>
+                        <p><label>Вид</label></p>
+                        <p><select>
+                                <option>Комната</option>
+                                <option>Квартира</option>
+                                <option>Малосемейка</option>
+                                <option>Таунхауз</option>
+                                <option>Гараж</option>
+                                <option>Офис</option>
+                                <option>Нежилое помещение</option>
+                            </select></p>
+                    </figure>
+                    <figure>
+                        <p><label>Тип жилья</label></p>
+                        <p><select>
+                                <option>Вторичное</option>
+                                <option>Новое</option>
+                            </select></p>
+                    </figure>
+                    <figure>
+                        <p><label for="rooms">Количество комнат</label></p>
+                        <p><input type="number" id="rooms" placeholder="от">
+                            <input type="number" placeholder="до">
+                        </p>
+                    </figure>
+                    <figure>
+                        <p><label for="floor">Этаж</label></p>
+                        <p><input type="number" id="floor" placeholder="от">
+                            <input type="number" placeholder="до">
+                        </p>
+                    </figure>
+                    <figure>
+                        <p><label for="tel">Телефон</label></p>
+                        <p><input type="tel" id="tel" size="17"></p>
+                    </figure>
+                    <figure>
+                        <p><label for="date">Добавлено</label></p>
+                        <p><input type="date" id="date">
+                            <label>по</label>
+                            <input type="date">
+                        </p>
+                    </figure>
+
+                    <figure>
+                        <p><label for="object">№ объекта</label></p>
+                        <p><input type="number" id="object"></p>
+                    </figure>
+
+                </div>
+
+                <div>
+                    <figure>
+                        <p><input type="checkbox" class="checks" id="photo">
+                            <label for="photo">Сдается в аренду</label>
+                        </p>
+                    </figure>
+
+                    <div>
+                        <a href="#" type="reset" class="button-negative">Очистить</a>
+                        <a href="search.html" type="button" class="button">Искать</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+<!-- 
+    <section class="search-description">
+        <a href="#" title="Сохранить"><i class="fas fa-save fa-1x"></i> Сохранить поиск</a>
+        <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Minima molestiae praesentium exercitationem asperiores laboriosam
+            tempora impedit consequuntur dolores alias! Hic itaque, numquam
+            porro nobis dicta reprehenderit inventore quia eius quaerat.
+        </p>
+    </section>
+    <section class="">
+
+        <div class="">
+            <iframe src="https://yandex.ru/map-widget/v1/-/CCUQ6GH-TB" width="100%" height="450"
+                allowfullscreen="true"></iframe>
+
+        </div>
+    </section>
+    <section class="country">
+        <div>
+            <p>Сортировать по
+                <select>
+                    <option>популярности</option>
+                    <option>возрастанию</option>
+                    <option>убыванию</option>
+                </select>
+            </p>
+        </div>
+        <div>
+            <p>Всего: 12345</p>
+            <p><span>Показать по</span>
+                <input type="radio" name="show" id="25" class="country-show" checked> <label for="25">25</label>
+                <input type="radio" name="show" id="50" class="country-show"> <label for="50">50</label>
+                <input type="radio" name="show" id="100" class="country-show"> <label for="100">100</label>
+            </p>
+        </div>
+    </section>
+
+    <section class="country-places">
+        <div class="country-card">
+            <a href="place.html">
+                <div>
+                    <p>№12345</p>
+                    <div>
+                        <object><a href="" class="fas fa-plus" title="Добавить в сравнение">&nbsp</a></object>
+                        <object><a href="" class="far fa-heart" title="Добавить в избранное"></a></object>
+                    </div>
+                </div>
+
+                <img src="images/cottage.jpg" width="100%">
+                <p>Александровский тракт</p>
+                <p>Поднебесный</p>
+                <!-- <div>
+                            <p>Назначение: ЗНП</p>
+                            <p>Владение: собственность</p>
+                        </div> 
+                <div class="country-card-price">
+                    <h3>1 060</h3>
+                    <p>тыс. р. | 106 сот.</p>
+                    <p>10 тыс.руб./сотку</p>
+                </div>
+            </a>
+
+        </div>
+        <div class="country-card">
+            <a href="place.html">
+                <div>
+                    <p>№12345</p>
+                    <div>
+                        <object><a href="" class="fas fa-plus" title="Добавить в сравнение">&nbsp</a></object>
+                        <object><a href="" class="far fa-heart" title="Добавить в избранное"></a></object>
+                    </div>
+                </div>
+
+                <img src="images/cottage.jpg" width="100%">
+                <p>Александровский тракт</p>
+                <p>Поднебесный</p>
+                <!-- <div>
+                            <p>Назначение: ЗНП</p>
+                            <p>Владение: собственность</p>
+                        </div> 
+                <div class="country-card-price">
+                    <h3>1 060</h3>
+                    <p>тыс. р. | 106 сот.</p>
+                    <p>10 тыс.руб./сотку</p>
+                    <!-- <p>106 сот.</p> 
+                </div>
+            </a>
+
+        </div>
+        <div class="country-card">
+            <a href="place.html">
+                <div>
+                    <p>№12345</p>
+                    <div>
+                        <object><a href="" class="fas fa-plus" title="Добавить в сравнение">&nbsp</a></object>
+                        <object><a href="" class="far fa-heart" title="Добавить в избранное"></a></object>
+                    </div>
+                </div>
+
+                <img src="images/cottage.jpg" width="100%">
+                <p>Александровский тракт</p>
+                <p>Поднебесный</p>
+                <!-- <div>
+                            <p>Назначение: ЗНП</p>
+                            <p>Владение: собственность</p>
+                        </div> 
+                <div class="country-card-price">
+                    <h3>1 060</h3>
+                    <p>тыс. р. | 106 сот.</p>
+                    <p>10 тыс.руб./сотку</p>
+                    <!-- <p>106 сот.</p> 
+                </div>
+            </a>
+
+        </div>
+        <div class="country-card">
+            <a href="place.html">
+                <div>
+                    <p>№12345</p>
+                    <div>
+                        <object><a href="" class="fas fa-plus" title="Добавить в сравнение">&nbsp</a></object>
+                        <object><a href="" class="far fa-heart" title="Добавить в избранное"></a></object>
+                    </div>
+                </div>
+
+                <img src="images/cottage.jpg" width="100%">
+                <p>Александровский тракт</p>
+                <p>Поднебесный</p>
+                <!-- <div>
+                            <p>Назначение: ЗНП</p>
+                            <p>Владение: собственность</p>
+                        </div> 
+                <div class="country-card-price">
+                    <h3>1 060</h3>
+                    <p>тыс. р. | 106 сот.</p>
+                    <p>10 тыс.руб./сотку</p>
+                    <!-- <p>106 сот.</p> 
+                </div>
+            </a>
+
+        </div>
+        <div class="country-card">
+            <a href="place.html">
+                <div>
+                    <p>№12345</p>
+                    <div>
+                        <object><a href="" class="fas fa-plus" title="Добавить в сравнение">&nbsp</a></object>
+                        <object><a href="" class="far fa-heart" title="Добавить в избранное"></a></object>
+                    </div>
+                </div>
+
+                <img src="images/cottage.jpg" width="100%">
+                <p>Александровский тракт</p>
+                <p>Поднебесный</p>
+                <!-- <div>
+                            <p>Назначение: ЗНП</p>
+                            <p>Владение: собственность</p>
+                        </div> --
+                <div class="country-card-price">
+                    <h3>1 060</h3>
+                    <p>тыс. р. | 106 сот.</p>
+                    <p>10 тыс.руб./сотку</p>
+                    <!-- <p>106 сот.</p> --
+                </div>
+            </a>
+
+        </div>
+        <div class="country-card">
+            <a href="place.html">
+                <div>
+                    <p>№12345</p>
+                    <div>
+                        <object><a href="" class="fas fa-plus" title="Добавить в сравнение">&nbsp</a></object>
+                        <object><a href="" class="far fa-heart" title="Добавить в избранное"></a></object>
+                    </div>
+                </div>
+
+                <img src="images/cottage.jpg" width="100%">
+                <p>Александровский тракт</p>
+                <p>Поднебесный</p>
+                <!-- <div>
+                            <p>Назначение: ЗНП</p>
+                            <p>Владение: собственность</p>
+                        </div> --
+                <div class="country-card-price">
+                    <h3>1 060</h3>
+                    <p>тыс. р. | 106 сот.</p>
+                    <p>10 тыс.руб./сотку</p>
+                    <!-- <p>106 сот.</p> 
+                </div>
+            </a>
+
+        </div>
+
+    </section>
+
+    <section>
+        <nav data-pagination>
+            <a href=# disabled class="fas fa-angle-left"><i></i></a>
+            <ul>
+                <li class=cr><a href=#1>1</a>
+                <li><a href=#2>2</a>
+                <li><a href=#3>3</a>
+                <li><a href=#4>4</a>
+                <li><a href=#5>5</a>
+            </ul>
+            <a href=#2 class="fas fa-angle-right"></a>
+        </nav>
+    </section> -->
+
+    
+</section>
+
+{% endblock %}

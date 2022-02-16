@@ -1,0 +1,76 @@
+{% extends 'main/layout.html' %}
+
+{% block description %}<meta name="description" content= "ЗемляИрк самая лучшая компания по продаже и покупке
+недвижимости! Мы на рынке уже более 10 лет и имеем больше 2 000 000 счастливых обладателей различных видов недвижимости."> {% endblock %}
+{% block title %}ЗемляИрк - Купить участок, коттедж, дом, дачу и другое в Иркутске.{% endblock %}
+{% block content %}
+
+<div class="left-statistic">
+    <h3>Сегодня в Иркутске продаются:</h3>
+    <div>
+        <p><i class="fas fa-warehouse"></i> 1945 объектов</p>
+        <p><i class="fas fa-vector-square"></i> 1600га земли</p>
+        <p><i class="fas fa-door-closed"></i> 789м<sup>2</sup> жилья</p>
+    </div>
+    <div>
+        <h4>Из них земель:</h4>
+        <p><i class="fas fa-home"></i> 66 дач</p>
+        <p><i class="fas fa-building"></i> 26 коттеджей</p>
+        <p><i class="fas fa-key"></i> 10 квартир</p>
+    </div>
+</div>
+</aside>
+
+<section>
+    <section class="search">
+        <form class="search-panel">
+            <input placeholder="Поиск"></input>
+            <a href="{% url 'search' %}" type="button" class="fa fa-search"> </a>
+        </form>
+        <a href="{% url 'search' %}" type="button" class="button"><span>Расширенный</span>&nbsp;поиск</a>
+        <a href="{% url 'search' %}" type="button" class="button fas fa-search-location fa-2x"></a>
+    </section>
+
+    <section class="breadcrumbs">
+        <a href="{% url 'mainpage' %}">Главная</a>
+        <p>Контакты</p>
+    </section>
+
+    <h1>Контакты</h1>
+    <section class="contacts">
+        <div>
+            <iframe src="https://yandex.ru/map-widget/v1/-/CCUQ6GH-TB" width="180%" height="500"
+                allowfullscreen="true"></iframe>
+        </div>
+        <div class="address">
+            <div>
+                <h3><i class="fa fa-map-marker-alt"></i>&nbsp Адрес:</h3>
+                <p>г. Иркутск, ул. Ленина, 11, офис 39</p>
+                <wbr>
+                <h3><i class="fa fa-clock"></i>&nbsp Часы работы:</h3>
+                <p>пн-пт 10:00-19:00</p>
+            </div>
+            <div>
+                <div>
+                    <h3><i class="fa fa-phone-alt"></i>&nbsp Телефон:</h3>
+                    <p>+7 (3952) 123-456</p>
+                </div>
+                <div>
+                    <h3><i class="fa fa-envelope"></i>&nbsp Почта:</h3>
+                    <p>mail@zemlyairk.ru</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact-about">
+        <wbr>
+        <h3>О компании</h3>
+        <p id="about">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quos harum non
+            consequatur ipsum numquam ipsa libero, commodi sed asperiores perspiciatis
+            consequuntur, quasi facere animi eligendi? Dicta quam quas eligendi!</p>
+    </section>
+</section>
+
+{% endblock %}

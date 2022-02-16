@@ -1,0 +1,176 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<p>Личные сообщения</p>
+</div>
+<!-- <h4 class="user">Иван Иванов</h4> -->
+
+<h1>Сообщения</h1>
+<nav class="navbar bg-light search row">
+    <form class="form-group p-0 col-12 m-0">
+        <div class="row col-12 no-gutters p-0 justify-content-between mb-2">
+            <div class="col-md-9">
+                <input class="form-control" type="search" placeholder="Поиск" aria-label="Поиск">
+            </div>
+            <button class="btn btn-outline-primary col ml-md-2 mt-2 mt-md-0" type="submit">Поиск</button>
+
+        </div>
+        <div class="form-check-inline form-check col-md-3 col-lg-3">
+            <input type="radio" id="sender" name="search" class="form-check-input">
+            <label for="sender" class="form-check-label">по отправителю</label>
+        </div>
+        <div class="form-check-inline form-check col-md-3 col-lg-2">
+            <input type="radio" id="theme" name="search" class="form-check-input">
+            <label for="theme" class="form-check-label">по теме</label>
+        </div>
+        <div class="form-check-inline form-check col-md-3 col-lg-2">
+            <input type="radio" id="text" name="search" class="form-check-input">
+            <label for="text" class="form-check-label">по тексту</label>
+        </div>
+
+        </div>
+    </form>
+</nav>
+</section>
+
+<section class="mail-bar row">
+    <ul class="nav nav-pills w-100 p-0 justify-content-md-between">
+        <li class="nav-item col-md-5 col-12 pl-md-0">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">Написать</a>
+        </li>
+        <li class="nav-item col-sm-auto col-12">
+            <a class="nav-link active" href="#">Входящие</a>
+        </li>
+        <li class="nav-item col-sm-auto col-12">
+            <a class="nav-link" href="#">Исходящие</a>
+        </li>
+        <li class="nav-item col-sm-auto col-12">
+            <a class="nav-link" href="#">Важные</a>
+        </li>
+        <li class="nav-item col-sm-auto col-12 pr-md-0">
+            <a class="nav-link" href="#">Черновики</a>
+        </li>
+    </ul>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Новое сообщение</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" action="{% url 'add_mess' %}">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Получатель:</label>
+                            <input type="text" class="form-control" id="recipient-name" name="user_to" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="theme" class="col-form-label">Тема:</label>
+                            <input type="text" class="form-control" id="theme" name="theme">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Сообщение:</label>
+                            <textarea class="form-control" id="message-text" rows="10" name="message"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mail-cards">
+    {% for x in messages %}
+    <div class="card row ">
+        <div class="col-md-2 col-12">
+            <p>{{x.date}}</p>
+        </div>
+
+        <div class="col-md-8 col-12">
+            <p><a href="{% url 'emp_item' x.user_from.id %}"> {{x.user_from}}</a></p>
+            <p>{{x.theme}}</p>
+        </div>
+
+        <div class="col-md-2 col-12">
+            <a href="#" class="fas fa-star"></a>
+            <a href="#" class="fas fa-trash"></a>
+            <a href="#" class="btn btn-primary mt-1" data-toggle="modal" data-target="#exampleModal2">Открыть</a>
+        </div>
+    </div>
+    
+
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Сообщение</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <a href="{% url 'emp_item' x.user_from.id %}">{{x.user_from}}</a>
+                        </div>
+                        <div class="form-group">
+                            <p>{{x.theme}}</p>
+                        </div>
+                        <div class="form-group">
+                            <p>{{x.message}}</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</section>
+{% if is_paginated %}
+<section class="col-12 mt-2">
+    <nav aria-label="Пример навигации по страницам">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item  ">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="false">&#171;</a>
+            </li>
+            {% else %}
+            <li class="page-item  disabled ">
+                <a class="page-link" href="" tabindex="-1" aria-disabled="true">&#171;</a>
+            </li>
+            {% endif %}
+            
+            {% for x in page_obj.paginator.page_range %}
+                {% if  x == page_obj.number %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ x }}">{{ x }}</a></li>
+                {% elif x > page_obj.number|add:-3 and x < page_obj.number|add:3 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ x }}">{{ x }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" tabindex="1" aria-disabled="false">&#187;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled ">
+                <a class="page-link" href="" tabindex="1" aria-disabled="true">&#187;</a>
+            </li>
+
+            {% endif %}
+        </ul>
+    </nav>
+</section>
+{% endif %}
+{% endblock %}

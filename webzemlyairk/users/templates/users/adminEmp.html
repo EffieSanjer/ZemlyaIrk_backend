@@ -1,0 +1,81 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<a href="{% url 'all_emps' %}">Сотрудники</a>
+<p>{{emp.full_name}}</p>
+</div>
+
+<h1>{{emp.full_name}}</h1>
+</section>
+<section class="row col-12 mx-auto">
+    <div class="col-lg-2 col-12">
+        <img src="{% if emp.photo != None %}{{emp.photo.url}}{% endif %}" width="100%" alt="">
+    </div>
+    <div class="card col-lg-7 col-12">
+        <div class="card-body p-0 py-2">
+            <div class="row">
+                <h4 class="card-title col-md-11 col-10">Информация</h4>
+                <h4 class="card-title col-1"><a href="{% url 'edit_emp' emp.id %}" class="fas fa-pen"></a></h4>
+            </div>
+            <div class="card-text row">
+                <div class="col-lg-4">Телефоны</div>
+                <div class="col-lg-8">
+                    <p> {{emp.phone1}}</p>
+                    <p> {{emp.phone2}}</p>
+                </div>
+                <div class="col-lg-4">Email</div>
+                <div class="col-lg-8">
+                    <p> {{emp.email}}</p>
+                </div>
+                <div class="col-lg-4">Должность</div>
+                <div class="col-lg-8">
+                    <p> {{emp.position}}</p>
+                </div>
+                <!-- <div class="col-lg-4">Роль</div>
+                <div class="col-lg-8">
+                    <p> {{emp.rol}}</p>
+                </div> -->
+                <div class="col-lg-4">Примечание</div>
+                <div class="col-lg-8">
+                    <p>{{emp.comment}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-12 p-0 px-lg-3">
+
+        <a href="{% url 'messages' %}" class="btn btn-success col-12 my-1">Написать</a>
+        <a href="{% url 'add_req' %}" class="btn btn-primary col-12 my-1">Добавить заявку</a>
+        <!-- <a href="#" class="btn btn-primary col-12 my-1 ">Клиенты 25</a> -->
+        <!-- <a href="#" class="btn btn-primary col-12 my-1 ">Эксклюзивные клиенты 5</a> -->
+        <a href="{% url 'emp_requests' emp.id %}" class="btn btn-primary col-12 my-1 ">Заявки {{emp.request_set.count}}</a>
+        <a href="" class="btn btn-danger col-12 my-5 "  data-toggle="modal" data-target="#exampleModal">Удалить</a> 
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <form method="POST" action="{% url 'delete_emp' emp.id %}">
+                        {% csrf_token %}
+                        <h5 class="modal-title pb-4" id="exampleModalLabel">Удалить сотрудника №{{emp.id}}?</h5>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                aria-label="Close">Отмена</button>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

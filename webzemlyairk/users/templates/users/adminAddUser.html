@@ -1,0 +1,72 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<a href="{% url 'all_emps' %}">Наша команда</a>
+<p>Создать сотрудника</p>
+</div>
+
+<h1>Создать сотрудника</h1>
+</section>
+<section>
+    <form method="POST" action="{% url 'add_emp' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-7 col-12">
+                <label for="name" class="col-form-label">Имя и Фамилия</label>
+                <input type="text" class="form-control" id="name" name="full_name" required>
+            </div>
+            <div class="form-group col-md-5 col-12">
+                <label for="email" class="col-form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="phone" class="col-form-label col-12">Телефоны</label>
+            <div class="form-group col-md-6 col-12">
+                <input type="text" class="form-control col-12 my-1" id="phone" name="phone1" required>
+            </div>
+            <div class="form-group col-md-6 col-12">
+                <input type="text" class="form-control col-12 my-1" id="phone" name="phone2">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6 col-12">
+                <label for="position" class="col-form-label">Должность</label>
+                <input type="text" class="form-control" id="position" name="position" required>
+            </div>
+            <div class="form-group col-md-6 col-12">
+                <label class="col-form-label">Роль</label>
+                <select class="form-control" name="role">
+                    <option value="1">Менеджер</option>
+                    <option value="2">Администратор</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group  col-md-6 col-12">
+                <label for="password1" class="col-form-label">Новый пароль</label>
+                <input type="password" class="form-control" id="password1" required>
+            </div>
+            <div class="form-group  col-md-6 col-12">
+                <label for="password2" class="col-form-label">Повторите пароль</label>
+                <input type="password" class="form-control" id="password2" name="password" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="note-text" class="col-form-label">Примечание:</label>
+            <textarea class="form-control" id="note-text" name="comment"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Фото:</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1" name="photo">
+        </div>
+        <div class="row py-4 w-100 my-md-3 mx-auto justify-content-end">
+            <button type="reset" class="btn btn-secondary col-md-3 col-12 mx-md-2 my-1">Сбросить</button>
+            <button type="submit" class="btn btn-success col-md-3 col-12 mx-md-2 my-1">Добавить</button>
+        </div>
+    </form>
+
+</section>
+{% endblock %}

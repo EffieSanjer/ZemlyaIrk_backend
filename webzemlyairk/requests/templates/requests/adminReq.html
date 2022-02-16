@@ -1,0 +1,250 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<a href="{% url 'all_requests' %}">Заявки</a>
+<p>Заявка №{{order.id}}</p>
+</div>
+<!-- <h4 class="user">Иван Иванов</h4> -->
+<div class="row  pr-md-3">
+    <h1 class="col-md-6 col-auto">Информация о заявке №{{order.id}}
+        {% if order.status != 3 %}
+        <a href="{% url 'edit_req' order.id %}" class="fas fa-pen m-auto"></a>
+        {% endif %}
+    </h1>
+    <p class="col-md-6 col-12 m-auto text-right">{{order.date_start}}</p>
+</div>
+</section>
+<section class="row mx-auto">
+    <div class="col-lg-7 col-12 p-0">
+        <h4>{{order.name}}
+            {% if order.status == 1 %}
+                <a href="" title="Активна" class="fas fa-sync-alt text-success"></a>
+            {% elif order.status == 2 %}
+                <a href="" title="Приостановлена" class="far fa-stop-circle text-secondary"></a>
+            {% else %}
+                <a href="" title="Завершена" class="far fa-check-circle text-primary"></a>
+            {% endif %}
+
+            {% if order.for_sale %}
+                <a href="" title="На продажу" class="fas fa-arrow-circle-up text-danger"></a>
+            {% else %}
+                <a href="" title="На покупку" class="fas fa-arrow-circle-down text-danger"></a>
+            {% endif %}
+        </h4>
+
+        <p>{{order.get_type_display}}</p>
+        <p>Покупатель: {{order.customer.full_name}} {% if order.status != 3 %}<a href="#" class="fas fa-plus"></a></p>{% endif %}
+        <p>Продавец: {{order.seller.full_name}} {% if order.status != 3 %} <a href="#" class="fas fa-plus"></a></p> {% endif %}
+        <p>Офис: {{order.office.name}}</p>
+        
+        <p>Объект: №{{order.object.id}}</p>
+        
+        <p>{{order.description}}</p>
+
+    </div>
+
+    <div class="col-lg-5 col-12 p-0 px-md-3">
+        <div class="row p-0 mx-auto">
+            {% if order.status == 2 %}
+                <form action="{% url 'continue_req' order.id %}" method="POST" class="col-md-5 col-12 pl-0">{% csrf_token %}
+                    <button type="submit" class="btn btn-secondary m-1 w-100 {% if order.status == 3 %} disabled {% endif %}" >Запустить</button>
+                </form>
+            {% else %}
+                <form action="{% url 'stop_req' order.id %}" method="POST" class="col-md-5 col-12 pl-0">{% csrf_token %}
+                    <button type="submit" class="btn btn-secondary m-1 w-100 {% if order.status == 3 %} disabled {% endif %}" >Приостановить</button>
+                </form>
+            {% endif %}
+            <a href="{% url 'finish_req' order.id %}" class="btn btn-success col-md-5 col-12 m-1 
+            {% if order.date_signed == None or order.date_payment == None or order.date_frs == None or order.date_payment_us == None or order.customer == None or order.seller == None or order.object == None %}disabled{% endif %}
+            {% if order.status == 3 or order.status == 2 %}
+             disabled {% endif %} ">Завершить</a>
+            
+            <a href="#" class="fas fa-trash col-1 m-auto" data-toggle="modal" data-target="#exampleModal"></a>
+        </div>
+        <div class="row p-0 mx-auto my-2 justify-content-between">
+            <p> <i class="fas fa-exclamation"></i> {{order.get_urgency_display }}</p>
+            <p class="table-danger">{{order.date_end}}</p>
+        </div>
+        <div class="progress " style="height: 20px;">
+            
+            <div class="progress-bar" role="progressbar" style="width: {{order.progress}}%" aria-valuenow="{{order.progress}}" aria-valuemin="0"
+                aria-valuemax="100">{{order.progress}}%</div>
+        </div>
+        <div>
+            <label>{{order.get_progress_display}}</label>
+        </div>
+        <div class="card my-3">
+            <p class="card-header p-2">Участники</p>
+            <ul class="list-group list-group-flush members">
+                {%for m in order.members.all%}
+                <form action="{% url 'delete_member' order.id m.id %}" method="POST">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {% csrf_token %}   
+                    {{m}}
+                    {% if order.status != 3 %} <button type="submit" class="btn"><i class="fas fa-trash"></i></button> {% endif %}
+                </li>
+                </form>
+                {% endfor %}
+            </ul>
+
+            {% if order.status != 3 %}<p class="p-2"><a href="#" class="fas fa-plus"></a></p>{% endif %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <form method="POST" action="{% url 'delete_req' order.id %}">
+                        {% csrf_token %}
+                        <h5 class="modal-title pb-4" id="exampleModalLabel">Удалить заявку №{{order.id}}?</h5>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                aria-label="Close">Отмена</button>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section class="row mx-auto">
+    <div class="col-lg-7 col-12 p-0">
+        {% if order.status != 3 %}
+        <div class="card p-0 col-12 ">
+            <div class="card-header">
+               {% now 'd E Y' %}
+            </div>
+            <form class="card-body" method="POST" action="{% url 'add_comm_order' order.id %}">
+                {% csrf_token %}
+                <h4 class="card-title">Иван Иванов</h4>
+                <div class="card-text">
+                    <textarea class="w-100 form-control" rows="5" placeholder="Комментарий" name="message" required></textarea>
+                </div>
+                <div class="text-right my-2"><button class="btn btn-primary" type="submit">Отправить</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        <div class="col-12 mt-3 comments p-0">
+            {%for m in order.order_comm.all%}
+            <form class="card p-0 col-12 my-2" method="POST" action="{% url 'delete_comm_order' order.id m.id %}">
+                {% csrf_token %}
+                <div class="card-header d-flex px-5 py-2 justify-content-between align-items-center">
+                    <p class="m-0 "> {{m.date}}</p>
+                    {% if order.status != 3 %}
+                    <button type="submit" class="btn"><i class="fas fa-trash"></i></button>{% endif %}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{m.emp}}</h4>
+                    <p class="card-text">
+                        {{m.message}}
+                    </p>
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-lg-5 col-12 py-2">
+        <div class="list-group docs">
+            <div href="#" class="list-group-item list-group-item-action">
+                <div class="d-sm-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><a href=""> Документ.docx</a></h5>
+                    <p class="w-100 d-flex justify-content-sm-around justify-content-between"><small>1.2Мб</small>
+                        <small>01.02.2021</small>
+                    </p>
+                </div>
+                <p class="d-flex w-100 justify-content-between py-3 m-0">
+                    <small>Олег Банкин</small>
+                    {% if order.status != 3 %}<a href="#" class="fas fa-trash badge-pill"></a>{% endif %}
+                </p>
+            </div>
+
+
+        </div>
+        {% if order.status != 3 %}<p class="p-2"><a href="#" class="fas fa-paperclip"></a></p>{% endif %}
+    </div>
+
+</section>
+<!-- <section>
+    {% if order.status != 3 %}
+    <h3 class="col-md-6 col-11 my-4 p-0">Подходящие предложения
+        <a href="#" class="fas fa-plus col-1 m-auto"></a>
+    </h3>
+
+    <section class="object-cards row px-1">
+        <a href="" class="card col-lg-3 col-md-5 col-12">
+            <div class="card-head p-1 col-12">
+                <h4>№12345</h4>
+            </div>
+            <img src="images/cottage.jpg" class="card-img-top" alt="...">
+            <div class="card-body col-12 p-2">
+                <p>Александровский тракт</p>
+                <p>Поднебесный</p>
+                <div class="justify-content-between">
+                    <h4>1060 тыс.р.</h4>
+                    <p> 106 сот.</p>
+                </div>
+                <p><span>10</span> тыс.р./сотку</p>
+            </div>
+        </a>
+        <a href="" class="card col-lg-3 col-md-5 col-12">
+            <div class="card-head p-1 col-12">
+                <h4>№12345</h4>
+            </div>
+            <img src="images/cottage.jpg" class="card-img-top" alt="...">
+            <div class="card-body col-12 p-2">
+                <p>Александровский тракт</p>
+                <p>Поднебесный</p>
+                <div class="justify-content-between">
+                    <h4>1060 тыс.р.</h4>
+                    <p> 106 сот.</p>
+                </div>
+                <p><span>10</span> тыс.р./сотку</p>
+            </div>
+        </a>
+        <a href="" class="card col-lg-3 col-md-5 col-12">
+            <div class="card-head p-1 col-12">
+                <h4>№12345</h4>
+            </div>
+            <img src="images/cottage.jpg" class="card-img-top" alt="...">
+            <div class="card-body col-12 p-2">
+                <p>Александровский тракт</p>
+                <p>Поднебесный</p>
+                <div class="justify-content-between">
+                    <h4>1060 тыс.р.</h4>
+                    <p> 106 сот.</p>
+                </div>
+                <p><span>10</span> тыс.р./сотку</p>
+            </div>
+        </a>
+    </section>
+
+    <section class="col-12 mt-2">
+        <nav aria-label="Пример навигации по страницам">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&#171;</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">&#187;</a>
+                </li>
+            </ul>
+        </nav>
+    </section>
+    {% endif %}
+</section> -->
+{% endblock %}

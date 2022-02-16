@@ -1,0 +1,165 @@
+{% extends 'main/layout.html' %}
+
+{% block description %}<meta name="description" content= "Уникальный сервис Карта трактов для всех от ЗемляИрк."> {% endblock %}
+{% block title %}ЗемляИрк - Карта трактов, купить недвижимость в Иркутске.{% endblock %}
+
+{% block content %}
+<div class="left-statistic">
+    <h3>Сегодня в Иркутске продаются:</h3>
+    <div>
+        <p><i class="fas fa-warehouse"></i> 1945 объектов</p>
+        <p><i class="fas fa-vector-square"></i> 1600га земли</p>
+        <p><i class="fas fa-door-closed"></i> 789м<sup>2</sup> жилья</p>
+    </div>
+    <div>
+        <h4>Из них земель:</h4>
+        <p><i class="fas fa-home"></i> 66 дач</p>
+        <p><i class="fas fa-building"></i> 26 коттеджей</p>
+        <p><i class="fas fa-key"></i> 10 квартир</p>
+    </div>
+</div>
+
+<div class="low-price-places">
+    <h3>Предложения с низкой ценой</h3>
+    <fieldset>
+        <legend>Коттедж</legend>
+        <a href="place.html">
+            <img src="./images/cottage.jpg" width="100%">
+            <p>Большое Голоустное</p>
+            <div>
+                <p><span>3 500</span>
+                    <span>тыс.р.</span>
+                    <span>| 80м<sup>2</sup></span>
+                </p>
+            </div>
+        </a>
+    </fieldset>
+
+    <fieldset>
+        <legend>Коттедж</legend>
+        <a href="place.html">
+            <img src="./images/cottage.jpg" width="100%">
+            <p>Осинка</p>
+            <div>
+                <p><span>3 500</span>
+                    <span>тыс.р.</span>
+                    <span>| 80м<sup>2</sup></span>
+                </p>
+            </div>
+        </a>
+    </fieldset>
+
+    <fieldset>
+        <legend>Коттедж</legend>
+        <a href="place.html">
+            <img src="./images/cottage.jpg" width="100%">
+            <p>Березонька</p>
+            <div>
+                <p><span>3 500</span>
+                    <span>тыс.р.</span>
+                    <span>| 80м<sup>2</sup></span>
+                </p>
+            </div>
+        </a>
+    </fieldset>
+
+</div>
+</aside>
+
+<section>
+    <section class="search">
+        <form class="search-panel">
+            <input placeholder="Поиск"></input>
+            <a href="{% url 'search' %}" type="button" class="fa fa-search"> </a>
+        </form>
+        <a href="{% url 'search' %}" type="button" class="button"><span>Расширенный</span>&nbsp;поиск</a>
+        <a href="{% url 'search' %}" type="button" class="button fas fa-search-location fa-2x"></a>
+    </section>
+
+    <section class="breadcrumbs">
+        <a href="{% url 'mainpage' %}">Главная</a>
+        <a href="{% url 'map_roads' %}">Карта трактов</a>
+        <p>{{ road.show_name }}</p>
+    </section>
+
+    <h1>{{ road.show_name }}</h1>
+    <section class="road">
+        <div class="road-description">
+            <p>{{ road.description }}</p>
+        </div>
+        <div>
+            <iframe src="https://yandex.ru/map-widget/v1/-/CCUQ6GH-TB" width="169%" height="500"
+                allowfullscreen="true"></iframe>
+        </div>
+
+    </section>
+
+    <!-- <section class="road-img">
+                <img src="images/road-photo.jpg" width="100%">
+            </section> -->
+    <!-- Add images to <div class="fotorama"></div> -->
+    <div class="fotorama" data-nav="thumbs" data-allowfullscreen="true">
+        <img src="images/road-photo.jpg">
+        <img src="images/road-photo.jpg">
+        <img src="images/road-photo.jpg">
+    </div>
+
+
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <p class="highcharts-description">
+            Описание графика
+        </p>
+    </figure>
+
+
+
+
+
+
+    <section class="road-places">
+        <div>
+            <a href="#" class="button">Все</a>
+            <a href="#" class="button">Населенные пункты</a>
+            <a href="#" class="button">Садоводства</a>
+            <a href="#" class="button">Коттеджные поселки</a>
+            <a href="#" class="button">Местности</a>
+
+        </div>
+        <div>
+            <p>Показать
+                <select>
+                    <option><a href="#" class="button">Все</a></option>
+                    <option><a href="#" class="button">Населенные пункты</a></option>
+                    <option><a href="#" class="button">Садоводства</a></option>
+                    <option><a href="#" class="button">Коттеджные поселки</a></option>
+                    <option><a href="#" class="button">Местности</a></option>
+                </select>
+            </p>
+        </div>
+
+        <div>
+            <table>
+                <tr>
+                    <th>{{ road.show_name }}</th>
+                    <th>Удаленность</th>
+                    <th>Объектов</th>
+                    <!-- <th>Коттеджей</th>
+                    <th>Дач</th> -->
+                    <th>Ср.цена/сотку</th>
+                </tr>
+                {% for l in road.children.all %}
+                <tr>
+                    <td>{{l.show_name}}</td>
+                    <td>{{l.distance}}</td>
+                    <td>{{l.locality.count}}</td>
+                    <td>-</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+</section>
+
+
+{% endblock %}

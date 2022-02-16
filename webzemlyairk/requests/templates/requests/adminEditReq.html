@@ -1,0 +1,135 @@
+{% extends 'admin/admin_layout.html' %}
+        {% block content %}
+                <a href="{% url 'main_admin' %}">Панель администратора</a>
+                <a href="{% url 'all_requests' %}">Все заявки</a>
+                <p>Редактировать заявку</p>
+            </div>
+            <!-- <h4 class="user">Иван Иванов</h4> -->
+
+            <h1>Редактировать заявку</h1>
+        </section>
+        <section>
+
+            <form action="{% url 'edit_req' order.id %}" method="POST" >
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-7 col-12">
+                        <label for="name" class="col-form-label">Название заявки</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{order.name}}" required>
+                    </div>
+                    <div class="form-group col-md-5 col-12">
+                        <label class="col-form-label">Тип объекта</label>
+                        <select class="form-control" name="type" disabled>
+                            {% for x in order.dict_type %}
+                            
+                            <option value="{{x.0}}" {% if order.type == x.0 %}selected  {% endif %} >{{x.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4 col-12">
+                        <label for="seller" class="col-form-label">Продавец <a href="#" class="fas fa-plus" data-toggle="modal" data-target="#exampleModal"></a></label>
+                        <input type="text" class="form-control col-12 my-1" id="seller" name="seller" value="{{order.seller.id}}">
+                    </div>
+                    <div class="form-group col-md-4 col-12">
+                        <label for="customer" class="col-form-label">Покупатель <a href="#"
+                                class="fas fa-plus" data-toggle="modal" data-target="#exampleModal"></a></label>
+                        <input type="text" class="form-control col-12 my-1" id="customer" name="customer" value="{{order.customer.id}}" >
+                    </div>
+                    <div class="form-group col-md-4 col-12">
+                        <label class="col-form-label">Офис </label>
+                        <select class="form-control my-1" name="office">
+                            {% for o in offices %}
+                            <option value="{{o.id}}" {% if order.office.id == o.id %}selected{% endif %}>{{o.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3 col-12">
+                        <label for="date" class="col-form-label">Дата окончания</label>
+                        <input type="date" class="form-control" id="date" name="date_end" value="{{order.date_end|date:'Y-m-d'}}" required>
+                    </div>
+                    <div class="form-group col-md-3 col-12">
+                        <label class="col-form-label">Срочность</label>
+                        <select class="form-control" name="urgency">
+                            {% for x in order.dict_urgency %}
+                            <option value="{{x.0}}"{% if order.urgency == x.0 %}selected{% endif %}>{{x.1}}</option>
+                            <!-- <option value="1">Срочная</option> -->
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3 col-12">
+                        <label class="col-form-label">Статус</label>
+                        <select class="form-control" name="status">
+                            {% for x in order.dict_status %}
+                            <option value="{{x.0}}"{% if order.status == x.0 %}selected{% endif %}>{{x.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3 col-12">
+                        <label for="obj" class="col-form-label">Объект <a href="#"
+                                class="fas fa-plus" data-toggle="modal" data-target="#exampleModal"></a></label>
+                        <input type="text" class="form-control col-12" id="obj" name="object" value="{{order.object.id}}" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="note-text" class="col-form-label">Описание:</label>
+                    <textarea class="form-control" id="note-text" name="description">{{order.description}}</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3 col-12">
+                        <label for="date1" class="col-form-label">Дата договора</label>
+                        <input type="date" class="form-control" id="date1" name="date_signed" value="{{order.date_signed|date:'Y-m-d'}}" >
+                    </div>
+                    <div class="form-group col-md-3 col-12">
+                        <label for="date2" class="col-form-label">Дата оплаты</label>
+                        <input type="date" class="form-control" id="date2" name="date_payment" value="{{order.date_payment|date:'Y-m-d'}}" >
+                    </div>
+                    <div class="form-group col-md-3 col-12">
+                        <label for="date3" class="col-form-label">Дата сдачи в ФРС</label>
+                        <input type="date" class="form-control" id="date3" name="date_frs" value="{{order.date_frs|date:'Y-m-d'}}" >
+                    </div>
+                    <div class="form-group col-md-3 col-12">
+                        <label for="date4" class="col-form-label">Дата оплаты "ЗемляИрк"</label>
+                        <input type="date" class="form-control" id="date4" name="date_payment_us" value="{{order.date_payment_us|date:'Y-m-d'}}" >
+                    </div>
+                </div>
+
+                <div class="row py-4 w-100 my-md-3 mx-auto justify-content-end">
+                    <button type="reset" class="btn btn-secondary col-md-3 col-12 mx-md-2 my-1">Отменить</button>
+                    <button type="submit" class="btn btn-success col-md-3 col-12 mx-md-2 my-1">Сохранить</button>
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" data-backdrop="static">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Добавить</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="id" class="col-form-label">Введите ID:</label>
+                                        <input type="text" class="form-control" id="id">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Добавить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </section>
+
+    {% endblock %}

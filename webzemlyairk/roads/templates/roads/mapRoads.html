@@ -1,0 +1,232 @@
+{% extends 'main/layout.html' %}
+
+{% block description %}<meta name="description" content= "ЗемляИрк имеет самый удобный сайт для своих будущих клиентов
+и предлагает уникальный сервис, демонстрирующий карту трактов Иркутской области."> {% endblock %}
+{% block title %}ЗемляИрк - Карта трактов, купить недвижимость в Иркутске.{% endblock %}
+
+{% block content %}
+<div class="left-statistic">
+    <h3>Сегодня в Иркутске продаются:</h3>
+    <div>
+        <p><i class="fas fa-warehouse"></i> 1945 объектов</p>
+        <p><i class="fas fa-vector-square"></i> 1600га земли</p>
+        <p><i class="fas fa-door-closed"></i> 789м<sup>2</sup> жилья</p>
+    </div>
+    <div>
+        <h4>Из них земель:</h4>
+        <p><i class="fas fa-home"></i> 66 дач</p>
+        <p><i class="fas fa-building"></i> 26 коттеджей</p>
+        <p><i class="fas fa-key"></i> 10 квартир</p>
+    </div>
+</div>
+<div class="low-price-places">
+    <h3>Предложения с низкой ценой</h3>
+    <fieldset>
+        <legend>Коттедж</legend>
+        <a href="place.html">
+            <img src="./images/cottage.jpg" width="100%">
+            <p>Большое Голоустное</p>
+            <div>
+                <p><span>3 500</span>
+                    <span>тыс.р.</span>
+                    <span>| 80м<sup>2</sup></span>
+                </p>
+            </div>
+        </a>
+    </fieldset>
+
+    <fieldset>
+        <legend>Коттедж</legend>
+        <a href="place.html">
+            <img src="./images/cottage.jpg" width="100%">
+            <p>Осинка</p>
+            <div>
+                <p><span>3 500</span>
+                    <span>тыс.р.</span>
+                    <span>| 80м<sup>2</sup></span>
+                </p>
+            </div>
+        </a>
+    </fieldset>
+
+    <fieldset>
+        <legend>Коттедж</legend>
+        <a href="place.html">
+            <img src="./images/cottage.jpg" width="100%">
+            <p>Березонька</p>
+            <div>
+                <p><span>3 500</span>
+                    <span>тыс.р.</span>
+                    <span>| 80м<sup>2</sup></span>
+                </p>
+            </div>
+        </a>
+    </fieldset>
+
+</div>
+</aside>
+
+<section>
+    <section class="search">
+        <form class="search-panel">
+            <input placeholder="Поиск"></input>
+            <a href="{% url 'search' %}" type="button" class="fa fa-search"> </a>
+        </form>
+        <a href="{% url 'search' %}" type="button" class="button"><span>Расширенный</span>&nbsp;поиск</a>
+        <a href="{% url 'search' %}" type="button" class="button fas fa-search-location fa-2x"></a>
+    </section>
+
+    <section class="breadcrumbs">
+        <a href="{% url 'mainpage' %}">Главная</a>
+        <p>Карта трактов</p>
+    </section>
+
+    <h1>Карта трактов</h1>
+    <section class="map-road">
+        {% for x in roads %}
+        <a href="{% url 'road_item' x.id %}" class="map-card">
+            <h3>{{x.show_name}}</h3>
+            <div>
+                <p>Продается {{x.locality.count}} объектов</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        {% endfor %}
+        <!-- <a href="#" class="map-card">
+            <h3>Байкальский тракт</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+
+        <a href="#" class="map-card">
+            <h3>Голоустенский тракт</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>Култукский тракт</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>В сторону Мельничной Пади</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>Московский тракт</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>Плишкинский тракт</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+
+        <a href="#" class="map-card">
+            <h3>Иркутск</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>Пригород Иркутска</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>По железной дороге в Слюдянку</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>Восточное побережье Байкала</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>Западное побережье Байкала</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>Байкал</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+
+        <a href="#" class="map-card">
+            <h3>Иркутская область</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a>
+        <a href="#" class="map-card">
+            <h3>Республика Бурятия</h3>
+            <div>
+                <p>Продается 278 участков</p>
+                <p><i class="fas fa-vector-square"></i> Земель: 262</p>
+                <p><i class="fas fa-building"></i> Коттеджей: 6</p>
+                <p><i class="fas fa-home"></i> Дач: 12</p>
+            </div>
+        </a> -->
+
+    </section>
+
+
+</section>
+
+{% endblock %}

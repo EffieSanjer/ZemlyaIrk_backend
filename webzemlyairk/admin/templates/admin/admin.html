@@ -1,0 +1,29 @@
+{% extends 'admin/admin_layout.html' %}
+
+    {% block content %}
+
+                <p>Панель администратора</p>
+            </div>
+
+            <h1>Здравствуйте, {{emp.full_name}}!</h1>
+            <!-- <div class="notification">
+                <h2>Напоминаем, что:</h2>
+                <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et deleniti 
+                tempore labore repellat quod cum culpa saepe harum magnam. 
+                Labore voluptate, eligendi nam quod libero eaque molestias sunt? 
+                Animi, omnis.
+                </p>
+            </div> -->
+            <div class="alert alert-primary" role="alert">
+                <h4 class="alert-heading">Напоминаем, что:</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam aliquam officiis, voluptas molestias
+                    iste est ea odit aperiam necessitatibus obcaecati corporis, illum blanditiis magnam mollitia dolor
+                    eius eum dolorum commodi.</p>
+                <hr>
+                <p class="mb-0">Когда Вам нужно, обязательно используйте маржинальные утилиты, чтобы все было в порядке
+                    и порядке.</p>
+            </div>
+        </section>
+
+    {% endblock %}

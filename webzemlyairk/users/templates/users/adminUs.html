@@ -1,0 +1,110 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<a href="{% url 'all_clients' %}">Клиенты</a>
+<p>{{client.full_name}}</p>
+</div>
+<!-- <h4 class="user">Иван Иванов</h4> -->
+
+<h1>{{client.full_name}}</h1>
+</section>
+
+{%for x in client.request_set.all %}
+{{x.name}}
+{% endfor %}
+<section class="row col-12 mx-auto">
+    <div class="col-lg-2 col-12">
+       
+    </div>
+    <div class="card col-lg-7 col-12">
+        <div class="card-body p-0 py-2">
+            <div class="row">
+                <h4 class="card-title col-md-11 col-10">Информация</h4>
+                <h4 class="card-title col-1"><a href="{% url 'edit_client' client.id %}" class="fas fa-pen"></a></h4>
+            </div>
+            <div class="card-text row">
+                <div class="col-lg-4">Телефоны</div>
+                <div class="col-lg-8">
+                    <p> {{client.phone1}}</p>
+                    <p> {{client.phone2}}</p>
+                </div>
+                <div class="col-lg-4">Email</div>
+                <div class="col-lg-8">
+                    <p>{{client.email}}</p>
+                </div>
+                <div class="col-lg-4">Примечание</div>
+                <div class="col-lg-8">
+                    <p>{{client.comment}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-12 p-0 px-lg-3">
+
+        <a href="{% url 'add_req' %}" class="btn btn-primary col-12 my-1">Добавить заявку</a>
+        <a href="{% url 'add_place' %}" class="btn btn-primary col-12 my-1">Добавить объект</a>
+        <a href="{% url 'client_objects' client.id %}" class="btn btn-primary col-12 my-1 ">Недвижимость {{client.seller.count}}</a>
+        <a href="{% url 'client_requests' client.id %}" class="btn btn-primary col-12 my-1 ">Заявки {{client.customers.count}}</a>
+        <a href="" class="btn btn-danger col-12 my-5 "  data-toggle="modal" data-target="#exampleModal">Удалить</a> 
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <form method="POST" action="{% url 'delete_client' client.id %}">
+                        {% csrf_token %}
+                        <h5 class="modal-title pb-4" id="exampleModalLabel">Удалить клиента №{{client.id}}?</h5>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                aria-label="Close">Отмена</button>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section class="row my-4 mx-0 justify-content-center p-0">
+    <div class="card p-0 col-md-8 col-12 ">
+        <div class="card-header">
+            {% now 'd E Y' %}
+        </div>
+        <form class="card-body" method="POST" action="{% url 'add_comm_client' client.id %}">
+            {% csrf_token %}
+            <h4 class="card-title">Иван Иванов</h4>
+            <div class="card-text">
+                <textarea class="w-100 form-control" rows="5" placeholder="Комментарий" name="message" required></textarea>
+            </div>
+            <div class="text-right mt-2"><button class="btn btn-primary" type="submit">Отправить</button></div>
+        </form>
+    </div>
+    <div class="col-md-8 mt-3 comments p-0">
+       {% for n in client.client_comm.all %}
+
+        <form class="card p-0 col-12 my-2 " method="POST" action="{% url 'delete_comm_client' client.id n.id %}">
+            {% csrf_token %}
+            <div class="card-header d-flex px-5 py-2 justify-content-between align-items-center">
+                <p class="m-0 ">{{n.date}}</p>
+                <!-- <input type="radio" name="comm" value="{{n.id}}" class="fas fa-trash" onclick="this.form.submit()"> -->
+                <button type="submit" class="btn"><i class="fas fa-trash"></i></button>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{n.emp}}</h4>
+                <p class="card-text">{{n.message}}</p>
+            </div>
+        </form>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

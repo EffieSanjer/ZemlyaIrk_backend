@@ -1,0 +1,115 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<p>Клиенты</p>
+</div>
+<!-- <h4 class="user">Иван Иванов</h4> -->
+
+<h1>Клиенты </h1>
+<nav class="navbar bg-light search row">
+    <form class="form-group p-0 col-12 m-0" method="GET" action="{% url 'all_clients' %}">
+        <div class="row col-12 no-gutters p-0 justify-content-between mb-2">
+            <div class="col-md-9">
+                <input class="form-control" type="search" name="search" placeholder="Поиск" aria-label="Поиск">
+            </div>
+            <button class="btn btn-outline-primary col ml-md-2 mt-2 mt-md-0" type="submit">Поиск</button>
+
+        </div>
+        <div class="form-check-inline form-check col-md-3 col-lg-2">
+            <input type="radio" id="name" name="search_type" value="name" class="form-check-input" {% if search_type == 'name' or search_type == None %} checked {% endif %}>
+            <label for="name" class="form-check-label">по имени</label>
+        </div>
+        <div class="form-check-inline form-check col-md-3 col-lg-2">
+            <input type="radio" id="phone" name="search_type" value="phone" class="form-check-input" {% if search_type == 'phone' %} checked {% endif %}>
+            <label for="phone" class="form-check-label">по телефону</label>
+        </div>
+        <div class="form-check-inline form-check col-md-3 col-lg-2">
+            <input type="radio" id="email" name="search_type" value="email" class="form-check-input" {% if search_type == 'email' %} checked {% endif %}>
+            <label for="email" class="form-check-label">по email</label>
+        </div>
+
+        </div>
+    </form>
+</nav>
+</section>
+
+<section class="users-bar row">
+    <ul class="nav nav-pills w-100">
+        <li class="nav-item col-md-auto col-6 my-1">
+            <a class="nav-link" href="{% url 'add_client' %}">Добавить</a>
+        </li>
+        <li class="nav-item col-sm-auto col-12 my-1">
+            <a class="nav-link active" href="#">Продавцы <span>455</span> </a>
+        </li>
+        <li class="nav-item col-sm-auto col-12 my-1">
+            <a class="nav-link" href="#">Покупатели <span>1089</span></a>
+        </li>
+    </ul>
+
+</section>
+
+<section class="users-cards">
+    {% for c in clients %}
+    <div class="card">
+        <div class="row col-12 px-3 m-0">
+            <a href="{% url 'client_item' c.id %}" class="col-md-9 col-11 my-2">{{c.full_name}}</a>
+            {% if c.self_registration %}
+                <i class="fas fa-laptop fa-2x col-1 my-2"></i>
+            {% else %}
+                <i class="fas fa-phone-volume fa-2x col-1 my-2"></i>
+            {% endif %}
+            <a href="{% url 'client_requests' c.id %}" class="btn btn-primary col-md-2 col-12 h-100">Заявки</a>
+        </div>
+        <div class="row col-12 px-3 m-0">
+            <p class="col-md-3 col-12">{{c.email}}</p>
+            <p class="col-md-3 col-12 my-2">{{c.phone1}}</p>
+            <p class="col-md-4 col-12 my-2">
+                <a>объявлений: {{c.seller.count}} |</a>
+                <a>заявок: {{c.customers.count}}</a>
+            </p>
+            <a href="#" class="btn btn-danger col-md-2 col-12 h-100 my-2">Удалить</a>
+            <!-- <a href="#" class="fas fa-trash fa-2x col-2 text-right"></a> -->
+
+        </div>
+    </div>
+    {% endfor %}
+
+</section>
+{% if is_paginated %}
+<section class="col-12 mt-2">
+    <nav aria-label="Пример навигации по страницам">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item  ">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{{query}}" tabindex="-1" aria-disabled="false">&#171;</a>
+            </li>
+            {% else %}
+            <li class="page-item  disabled ">
+                <a class="page-link" href="" tabindex="-1" aria-disabled="true">&#171;</a>
+            </li>
+            {% endif %}
+            
+            {% for x in page_obj.paginator.page_range %}
+                {% if  x == page_obj.number %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ x }}{{query}}">{{ x }}</a></li>
+                {% elif x > page_obj.number|add:-3 and x < page_obj.number|add:3 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ x }}{{query}}">{{ x }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{{query}}" tabindex="1" aria-disabled="false">&#187;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled ">
+                <a class="page-link" href="" tabindex="1" aria-disabled="true">&#187;</a>
+            </li>
+
+            {% endif %}
+        </ul>
+    </nav>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends 'admin/admin_layout.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<a href="{% url 'objects' %}">Все объекты</a>
+<p>Объект №{{place.id}}</p>
+</div>
+<!-- <h4 class="user">Иван Иванов</h4> -->
+<div class="row justify-content-between">
+
+    <h1 class="pl-md-3">
+        {% if place.status == 1 %}
+            <i class="fas fa-eye" title="Отображается на сайте"></i>
+            {% elif place.status == 2 %}
+            <i class="fas fa-eye-slash" title="Не отображается на сайте"></i>
+            {% else %}
+            <i class="fas fa-coins" title="Объект продан"></i>
+        {% endif %}
+        Объект №{{place.id}} 
+        <a href="{% url 'edit_place' place.id %}" class="fas fa-pen m-auto "></a> </h1>
+    <h2><a href="#" class="fas fa-trash m-auto text-right pr-md-3" data-toggle="modal" data-target="#exampleModal"></a></h2>
+</div>
+</section>
+
+<section class="row my-4 mx-0">
+    <div class="col-md-7 col-12 p-0 table-responsive">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Дата обновления</th>
+                    <td>{{place.date_update}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Тип объекта</th>
+                    <td>{{place.get_type_display}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Площадь</th>
+                    <td>{{place.area|floatformat}} сот.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Стоимость</th>
+                    <td>{{place.cost|floatformat}} тыс.р.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Комиссия</th>
+                    <td>{{place.comission|floatformat}} тыс.р.</td>
+                </tr>
+                <tr>
+                    <th scope="row">Кадастровый номер</th>
+                    <td>{{place.cadast_num}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Продавец</th>
+                    <td>{{place.seller}} ({{place.seller.phone1}})</td>
+                </tr>
+                <tr>
+                    <th scope="row">Расположение</th>
+                    <td>{{place.parent}}, {{place.locality}} ({{place.distance}} км)</td>
+                </tr>
+                <tr>
+                    <th scope="row">Адрес</th>
+                    <td>{{place.address}}</td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Владение</th>
+                    <td>{{place.get_posession_display}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Назначение</th>
+                    <td>{{place.get_purpose_display}}</td>
+                </tr>
+                
+                <tr>
+                    <th scope="row">Рейтинг</th>
+                    <td>{{place.rating}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Условия цены</th>
+                    <td>{{place.price_conditions}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Описание</th>
+                    <td>{{place.description}}</td>
+                </tr>
+                <tr>
+                    {% if place.good_price %}
+                        <td>Хорошая цена</td>
+                    {% endif %}
+                    {% if place.bargain %}
+                        <td>Возможен торг</td>
+                    {% endif %}
+                    {% if place.invest_attract %}
+                        <td>Инвестиционная привлекательность</td>
+                    {% endif %}
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-5 col-12 text-md-right text-center p-0 pl-md-2">
+        <img src="{% static 'main/images/road-photo.jpg' %}" width="130px">
+        <img src="{% static 'main/images/road-photo.jpg' %}" width="130px">
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <form method="POST" action="{% url 'delete_place' place.id %}">
+                        {% csrf_token %}
+                        <h5 class="modal-title pb-4" id="exampleModalLabel">Удалить объект №{{place.id}}?</h5>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                aria-label="Close">Отмена</button>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div>
+        <iframe src="https://yandex.ru/map-widget/v1/-/CCUQ6GH-TB" width="100%" height="500"
+            allowfullscreen="true"></iframe>
+    </div>
+</section>
+
+<section>
+    <div class="col-lg-12 col-12 p-0">
+        <div class="card p-0 col-12 ">
+            <div class="card-header">
+                {% now 'd E Y' %}
+            </div>
+            <form class="card-body"  method="POST" action="{% url 'add_comm_object' place.id %}">
+                {% csrf_token %}
+                <h4 class="card-title">Иван Иванов</h4>
+                <div class="card-text">
+                    <textarea class="w-100 form-control" rows="5" placeholder="Комментарий"  name="message" required></textarea>
+                </div>
+                <div class="text-right my-2"><button class="btn btn-primary" type="submit">Отправить</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 mt-3 comments p-0">
+            {%for m in place.object_comm.all%}
+            <form class="card p-0 col-12 my-2"  method="POST" action="{% url 'delete_comm_object' place.id m.id %}">
+                {% csrf_token %}
+                <div class="card-header d-flex px-5 py-2 justify-content-between align-items-center">
+                    <p class="m-0 "> {{m.date}}</p>
+                    {% if order.status != 3 %}
+                    <button type="submit" class="btn"><i class="fas fa-trash"></i></button>{% endif %}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{m.emp}}</h4>
+                    <p class="card-text">
+                        {{m.message}}
+                    </p>
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

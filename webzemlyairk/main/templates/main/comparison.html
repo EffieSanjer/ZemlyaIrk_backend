@@ -1,0 +1,216 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block description %}<meta name="description" content= "С помощью сервиса ЗемляИрк по сравнению, вы можете сравнить 
+любые интересующие Вас объекты. Просто заходите на сайт ЗемляИрк и принимайте решение о покупке правильно!"> {% endblock %}
+{% block title %}ЗемляИрк - Сравнить участки, коттеджи, дома, дачи и другое в Иркутске{% endblock %}
+{% block content %}
+
+<div class="left-statistic">
+    <h3>Сегодня в Иркутске продаются:</h3>
+    <div>
+        <p><i class="fas fa-warehouse"></i> 1945 объектов</p>
+        <p><i class="fas fa-vector-square"></i> 1600га земли</p>
+        <p><i class="fas fa-door-closed"></i> 789м<sup>2</sup> жилья</p>
+    </div>
+    <div>
+        <h4>Из них земель:</h4>
+        <p><i class="fas fa-home"></i> 66 дач</p>
+        <p><i class="fas fa-building"></i> 26 коттеджей</p>
+        <p><i class="fas fa-key"></i> 10 квартир</p>
+    </div>
+</div>
+</aside>
+
+<section>
+    <section class="search">
+        <form class="search-panel">
+            <input placeholder="Поиск"></input>
+            <a href="{% url 'search' %}" type="button" class="fa fa-search"> </a>
+        </form>
+        <a href="{% url 'search' %}" type="button" class="button"><span>Расширенный</span>&nbsp;поиск</a>
+        <a href="{% url 'search' %}" type="button" class="button fas fa-search-location fa-2x"></a>
+    </section>
+
+    <section class="breadcrumbs">
+        <a href="{% url 'mainpage' %}">Главная</a>
+        <p>Сравнение объектов</p>
+    </section>
+
+    <h1>Сравнение объектов</h1>
+    <form class="comparison" method="POST" action="{% url 'compare' %}">
+        {% csrf_token %}
+        <p>Тип объекта
+            <select>
+                {% for t in o.type_dict %}
+                <option>{{t.1}}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>Сравнить объекты №
+            <input type="number" size="3" name="comp">
+            <input type="number" size="3" name="comp">
+
+            <button type="submit" class="fa fa-check"></button>
+            
+        </p>
+
+
+    </form>
+
+    <section class="place comp">
+        {% for place in objects %}
+        <div class="place-description">
+            <div class="place-icons">
+                <h3>Земельный участок №{{place.id}}</h3>
+                <a href="#" class="far fa-heart" title="Добавить в избранное"></a>
+
+                <!-- <p class="locality">Большое Голоустное</p> -->
+            </div>
+            <div class="place-price">
+                <div>
+                    <h2><span>{{place.cost}}</span> р. </h2>
+                    <p>
+                    <p><i class="fas fa-vector-square fa-1x"></i> {{place.area|floatformat}}&nbsp;сот.&nbsp; </p>
+                    </p>
+                    <p>| {% widthratio place.cost place.area 1 %} руб./сотку</p>
+                </div>
+    
+            </div>
+            <table>
+                <tr>
+                    <td>Направление:</td>
+                    <td>{{place.locality}}</td>
+                </tr>
+                <tr>
+                    <td>Населенный пункт:</td>
+                    <td>{{place.parent}} </td>
+                </tr>
+                <tr>
+                    <td >Расположение</td>
+                    <td>{{place.distance}} км</td>
+                </tr>
+                <tr>
+                    <td >Адрес</td>
+                    <td>{{place.address}}</td>
+                </tr>
+
+                <tr>
+                    <td >Владение</td>
+                    <td>{{place.get_posession_display}}</td>
+                </tr>
+                <tr>
+                    <td >Назначение</td>
+                    <td>{{place.get_purpose_display}}</td>
+                </tr>
+                <tr>
+                    <td >Условия цены</td>
+                    <td>{{place.price_conditions}}</td>
+                </tr>
+                <tr>
+                    <td >Описание</td>
+                    <td>{{place.description}}</td>
+                </tr>
+                <tr>
+                    {% if place.good_price %}
+                        <td>Хорошая цена</td>
+                    {% endif %}
+                    {% if place.bargain %}
+                        <td>Возможен торг</td>
+                    {% endif %}
+                    {% if place.invest_attract %}
+                        <td>Инвестиционная привлекательность</td>
+                    {% endif %}
+                </tr>
+            </table>
+            <!-- <div class="road-img">
+                <img src="images/road-photo.jpg" width="100%">
+            </div> -->
+
+        </div>
+        {% endfor %}
+        
+
+    </section>
+    <section class="comparison">
+
+        <div class="place-description">
+            <iframe src="https://yandex.ru/map-widget/v1/-/CCUQ6GH-TB" width="100%" height="450"
+                allowfullscreen="true"></iframe>
+
+
+        </div>
+    </section>
+
+    <section class="place-sames">
+        <h3>Похожие предложения</h3>
+        <div class="low-price-places slider_price">
+            <div>
+                <fieldset>
+                    <legend>Коттедж</legend>
+                    <a href="place.html">
+                        <img src="{% static 'main/images/road-photo.jpg' %}" width="100%">
+                        <p>Березонька</p>
+                        <div>
+                            <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span>
+                            </p>
+                        </div>
+                    </a>
+                </fieldset>
+            </div>
+
+            <div>
+                <fieldset>
+                    <legend>Коттедж</legend>
+                    <a href="place.html">
+                        <img src="{% static 'main/images/road-photo.jpg' %}" width="100%">
+                        <p>Березонька</p>
+                        <div>
+                            <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span>
+                            </p>
+                        </div>
+                    </a>
+                </fieldset>
+            </div>
+
+            <div>
+                <fieldset>
+                    <legend>Коттедж</legend>
+                    <a href="place.html">
+                        <img src="{% static 'main/images/road-photo.jpg' %}" width="100%">
+                        <p>Березонька</p>
+                        <div>
+                            <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span>
+                            </p>
+                        </div>
+                    </a>
+                </fieldset>
+            </div>
+
+            <div>
+                <fieldset>
+                    <legend>Коттедж</legend>
+                    <a href="place.html">
+                        <img src="{% static 'main/images/road-photo.jpg' %}" width="100%">
+                        <p>Березонька</p>
+                        <div>
+                            <p><span>3 500</span>
+                                <span>тыс.р.</span>
+                                <span>| 80м<sup>2</sup></span>
+                            </p>
+                        </div>
+                    </a>
+                </fieldset>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+{% endblock %}

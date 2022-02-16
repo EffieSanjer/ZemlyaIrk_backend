@@ -1,0 +1,115 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<p>Наша команда</p>
+</div>
+<!-- <h4 class="user">Иван Иванов</h4> -->
+
+<h1>Сотрудники </h1>
+<nav class="navbar bg-light search row">
+    <form class="form-group p-0 col-12 m-0">
+        <div class="row col-12 no-gutters p-0 justify-content-between mb-2">
+            <div class="col-md-9">
+                <input class="form-control" type="search" placeholder="Поиск" aria-label="Поиск">
+            </div>
+            <button class="btn btn-outline-primary col ml-md-2 mt-2 mt-md-0" type="submit">Поиск</button>
+
+        </div>
+        <div class="form-check-inline form-check col-md-3 col-lg-2">
+            <input type="radio" id="name" name="search" class="form-check-input" checked>
+            <label for="name" class="form-check-label">по имени</label>
+        </div>
+        <div class="form-check-inline form-check col-md-3 col-lg-2">
+            <input type="radio" id="phone" name="search" class="form-check-input">
+            <label for="phone" class="form-check-label">по телефону</label>
+        </div>
+        <div class="form-check-inline form-check col-md-3 col-lg-2">
+            <input type="radio" id="email" name="search" class="form-check-input">
+            <label for="email" class="form-check-label">по email</label>
+        </div>
+
+        </div>
+    </form>
+</nav>
+</section>
+
+<section class="users-bar row">
+    <ul class="nav nav-pills w-100">
+        <li class="nav-item col-md-auto col-6 my-1">
+            <a class="nav-link" href="{% url 'add_emp' %}">Добавить</a>
+        </li>
+        <li class="nav-item col-auto my-1">
+            <select class="form-control w-auto col-12">
+                <option>Менеджеры</option>
+            </select>
+        </li>
+    </ul>
+</section>
+
+<section class="team-cards">
+    {% for c in emps %}
+    <div class="card">
+        <div class="row p-2 m-0">
+            <div class="col-md-3 col-12">
+                <img src="{% if c.photo != None %}{{c.photo.url}}{% endif %}" width="100%" alt="">
+            </div>
+            <div class="col-md-6 col-12">
+                <!-- <a href="#" class="fas fa-envelope col-1"></a> -->
+                <a href="{% url 'emp_item' c.id %}" class=" my-2">{{c.full_name}}</a>
+                <div class="row p-0 my-2">
+                    <p class="col-md-6 col-12">{{c.phone1}}</p>
+                    <p class="col-md-6 col-12">{{c.phone2}}</p>
+                </div>
+                <p class=" my-2">{{c.position}}</p>
+                <a href="{% url 'messages' %}" class="btn btn-success my-2 col-md-auto col-12">Написать</a>
+            </div>
+            <div class="col-md-3 col-12">
+                <a href="{% url 'emp_requests' c.id %}" class="btn btn-primary col-12 my-1">Все заявки</a>
+                <!-- <a href="#" class="btn btn-primary col-12 my-1">Клиенты</a>
+                <a href="#" class="btn btn-primary col-12 my-1 ">Эксклюзивные клиенты</a> -->
+                <a href="#" class="btn btn-danger col-12 my-1 ">Удалить</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+
+{% if is_paginated %}
+<section class="col-12 mt-2">
+    <nav aria-label="Пример навигации по страницам">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item  ">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="false">&#171;</a>
+            </li>
+            {% else %}
+            <li class="page-item  disabled ">
+                <a class="page-link" href="" tabindex="-1" aria-disabled="true">&#171;</a>
+            </li>
+            {% endif %}
+            
+            {% for x in page_obj.paginator.page_range %}
+                {% if  x == page_obj.number %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ x }}">{{ x }}</a></li>
+                {% elif x > page_obj.number|add:-3 and x < page_obj.number|add:3 %}
+                    <li class="page-item"><a class="page-link" href="?page={{ x }}">{{ x }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" tabindex="1" aria-disabled="false">&#187;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled ">
+                <a class="page-link" href="" tabindex="1" aria-disabled="true">&#187;</a>
+            </li>
+
+            {% endif %}
+        </ul>
+    </nav>
+</section>
+{% endif %}
+{% endblock %}

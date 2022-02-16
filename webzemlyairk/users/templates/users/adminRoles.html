@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<!--???-->
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="admin_style.css">
+    <link rel="stylesheet" media="screen" href="media.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЗемляИрк</title>
+</head>
+
+<body class="container">
+    <header class="container row no-gutters">
+        <nav class="navbar navbar-expand-lg navbar-dark col-12">
+            <a class="navbar-brand" href="#">ЗемляИрк</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Переключатель навигации">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav col-12">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Заявки
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="adminRequests.html">Все заявки</a>
+                            <a class="dropdown-item" href="#">Мои заявки</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Пользователи
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="adminUsers.html">Все пользователи</a>
+                            <a class="dropdown-item active" href="adminRoles.html">Права</a>
+                            <a class="dropdown-item" href="#">Клиенты в моих заявках</a>
+                            <a class="dropdown-item" href="adminTeam.html">Наша команда</a>
+
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="adminMess.html">Сообщения</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="adminFeedback.html">Обратная связь</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Объекты
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="adminObj.html">Все объекты</a>
+                            <a class="dropdown-item" href="adminRoads.html">Все тракты и пункты</a>
+                        </div>
+                    </li>
+                    <li class="nav-item flex-grow-1 text-right">
+                        <a class="nav-link" href="#"> <i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+
+    <main class="container">
+        <section>
+            <div class="breadcrumbs">
+                <a href="index.html">Главная</a>
+                <a href="admin.html">Панель администратора</a>
+                <p>Права</p>
+            </div>
+            <!-- <h4 class="user">Иван Иванов</h4> -->
+
+            <h1>Права пользователей </h1>
+            <!-- <nav class="navbar bg-light search row">
+                <form class="form-group p-0 col-12">
+                    <div class="row col-12 no-gutters p-0 justify-content-between mb-2">
+                        <div class="col-md-9">
+                            <input class="form-control" type="search" placeholder="Поиск" aria-label="Поиск">
+                        </div>
+                        <button class="btn btn-outline-primary col ml-md-2 mt-2 mt-md-0" type="submit">Поиск</button>
+
+                    </div>
+                    <div class="form-check-inline form-check col-md-3 col-lg-2">
+                        <input type="radio" id="name" name="search" class="form-check-input">
+                        <label for="name" class="form-check-label">по имени</label>
+                    </div>
+                    <div class="form-check-inline form-check col-md-3 col-lg-2">
+                        <input type="radio" id="phone" name="search" class="form-check-input">
+                        <label for="phone" class="form-check-label">по телефону</label>
+                    </div>
+                    <div class="form-check-inline form-check col-md-3 col-lg-2">
+                        <input type="radio" id="email" name="search" class="form-check-input">
+                        <label for="email" class="form-check-label">по email</label>
+                    </div>
+
+                    </div>
+                </form>
+            </nav> -->
+        </section>
+
+        <section>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Second</th>
+                            <td><i class="fas fa-times text-danger"></i></td>
+                            <td><i class="fas fa-times text-danger"></i></td>
+                            <td><i class="fas fa-times text-danger"></i></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Third</th>
+                            <td><i class="fas fa-times text-danger"></i></td>
+                            <td><i class="fas fa-times text-danger"></i></td>
+                            <td><i class="fas fa-check text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Last</th>
+                            <td><i class="fas fa-times text-danger"></i></td>
+                            <td><i class="fas fa-check text-success"></i></td>
+                            <td><i class="fas fa-check text-success"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+    <wbr>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+        <script src="jquery-3.6.0.min.js"></script>
+
+    <script src="script.js"></script>
+    <!-- <script id="rendered-js" >
+    //# sourceURL=pen.js
+    </script> -->
+</body>
+
+</html>

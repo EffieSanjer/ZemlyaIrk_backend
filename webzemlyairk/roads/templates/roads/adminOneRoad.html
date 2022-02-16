@@ -1,0 +1,105 @@
+{% extends 'admin/admin_layout.html' %}
+
+{% block content %}
+<a href="{% url 'main_admin' %}">Панель администратора</a>
+<a href="{% url 'localities' %}">Все тракты и пункты</a>
+<p>{{road.show_name}}</p>
+</div>
+<!-- <h4 class="user">Иван Иванов</h4> -->
+
+<div class="row justify-content-between">
+
+    <h1 class="pl-md-3">{{road.show_name}} <a href="{% url 'edit_loc' road.id %}" class="fas fa-pen m-auto "></a> </h1>
+    <h2><a href="#" class="fas fa-trash m-auto text-right pr-md-3" data-toggle="modal" data-target="#exampleModal"></a></h2>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <form method="POST" action="{% url 'delete_loc' road.id %}">
+                        {% csrf_token %}
+                        <h5 class="modal-title pb-4" id="exampleModalLabel">Удалить пункт №{{road.id}}?</h5>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                aria-label="Close">Отмена</button>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row my-4 mx-0">
+    <div class="col-md-6 col-12 p-md-0">
+        <p>{{road.description}}</p>
+    </div>
+    <div class="col-md-6 col-12 text-md-right text-center p-0 pl-md-2">
+        <img src="images/no-photo.jpg" width="130px">
+        <img src="images/no-photo.jpg" width="130px">
+        <img src="images/no-photo.jpg" width="130px">
+        <img src="images/no-photo.jpg" width="130px">
+        <img src="images/no-photo.jpg" width="130px">
+        <img src="images/no-photo.jpg" width="130px">
+    </div>
+</section>
+
+<section>
+    <div>
+        <iframe src="https://yandex.ru/map-widget/v1/-/CCUQ6GH-TB" width="100%" height="500"
+            allowfullscreen="true"></iframe>
+    </div>
+</section>
+<section>
+    <ul class="nav nav-pills">
+        <li class="nav-item col-md-2 col-12 pl-md-0">
+            <a class="nav-link active" href="#">Все</a>
+        </li>
+        <li class="nav-item col-md-2 col-12">
+            <a class="nav-link" href="#">Садоводства</a>
+        </li>
+        <li class="nav-item col-md-2 col-12">
+            <a class="nav-link" href="#">Местности</a>
+        </li>
+        <li class="nav-item col-md-3 col-12">
+            <a class="nav-link" href="#">Населенные пункты</a>
+        </li>
+        <li class="nav-item col-md-3 col-12 pr-md-0">
+            <a class="nav-link" href="#">Коттеджные поселки</a>
+        </li>
+    </ul>
+</section>
+
+<section>
+    <div class="table-responsive mt-3">
+        <table class="table">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th scope="col">{{road.show_name}}</th>
+                    <th scope="col">Удаленность</th>
+                    <th scope="col">Объектов</th>
+                    <th scope="col">Ср. цена/сотку</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in road.children.all %}
+                <tr>
+                    <td><a href="#">{{x.show_name}}</a></td>
+                    <td>{{x.distance}}</td>
+                    <td>{{x.country.count}}</td>
+                    <td>-</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
